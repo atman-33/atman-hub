@@ -13,9 +13,9 @@ export const formatDate = (date: Date, sep = '') => {
 };
 
 /**
- * Checks if the given date string is a valid date.
- * @param dateString The date string to validate, e.g. "2022-01-01"
- * @returns true if the date string is valid, false otherwise
+ * 与えられた日付文字列が有効な日付かどうかをチェックする。
+ * @param dateString 検証する日付文字列、例: "2022-01-01"
+ * @returns 日付文字列が有効な場合はtrue、そうでない場合はfalse
  */
 export const isValidDate = (dateString: string): boolean => {
   const date = new Date(dateString);
