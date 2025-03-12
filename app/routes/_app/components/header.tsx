@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { siteConfig } from '~/config/site-config';
 import { LoginButton } from './login-button';
 import { MainNav } from './main-nav';
+import { SearchButton } from './search-button';
 import { ThemeDropdown } from './theme-dropdown';
 
 interface HeaderProps {
@@ -26,6 +27,12 @@ export const Header = ({ user }: HeaderProps) => {
             {/* <CommandMenu /> */}
           </div>
           <nav className="hidden items-center sm:flex sm:gap-4">
+            <div className="w-6">
+              <SearchButton />
+            </div>
+            <div className="w-6">
+              <ThemeDropdown />
+            </div>
             <Link to={siteConfig.links.github} target="_blank" rel="noreferrer">
               <FaGithub className="h-6 w-6" />
               <span className="sr-only">GitHub</span>
@@ -38,9 +45,8 @@ export const Header = ({ user }: HeaderProps) => {
               <FaTwitter className="h-6 w-6" />
               <span className="sr-only">Twitter</span>
             </Link>
-            <ThemeDropdown />
           </nav>
-          <div className="flex items-center space-x-2">
+          <div className="ml-4 flex items-center">
             <LoginButton user={user} />
           </div>
         </div>

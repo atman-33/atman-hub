@@ -8,9 +8,9 @@ export const AppNavLink = ({
     <NavLink
       to={to}
       className={({ isActive, isPending }) =>
-        `flex h-10 items-center ${
+        `flex h-10 items-center font-bold ${
           isActive
-            ? 'border-b-2 border-b-foreground text-foreground'
+            ? 'border-b-4 border-b-foreground text-foreground'
             : isPending
               ? 'text-primary/80'
               : 'text-primary/50'
