@@ -16,13 +16,14 @@ import {
   showToast,
 } from './components/shadcn/custom/custom-sonner';
 import { ReactCallRoots } from './components/shared/react-call';
+import { siteConfig } from './config/site-config';
 import { commitSession, getSession } from './sessions.server';
 
 // biome-ignore lint/correctness/noEmptyPattern: <explanation>
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'New React Router App' },
-    { name: 'description', content: 'Welcome to React Router!' },
+    { title: siteConfig.name },
+    { name: 'description', content: siteConfig.description },
   ];
 }
 
@@ -37,6 +38,7 @@ export const links: Route.LinksFunction = () => [
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
   },
+  { rel: 'icon', href: '/favicons/favicon.ico', type: 'image/png' },
 ];
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
