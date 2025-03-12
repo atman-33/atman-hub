@@ -1,18 +1,24 @@
-import { Link, Outlet } from 'react-router';
+import { Outlet } from 'react-router';
+import { getSession } from '~/sessions.server';
+import type { Route } from './+types/route';
+import { Footer } from './components/footer';
+import { Header } from './components/header';
 
-// --- Layout
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  // ログイン中のユーザー取得
+  const session = await getSession(request.headers.get('Cookie'));
+  const user = session.get('user');
+  return user;
+};
 
-const AppLayout = () => {
+const AppLayout = ({ loaderData }: Route.ComponentProps) => {
   return (
     <>
-      <div className="flex justify-center bg-gray-100 p-4">
-        <Link to="/" className="mr-4">
-          <div className="font-bold text-xl">React Router v7 Boilerplate</div>
-        </Link>
-      </div>
-      <div className="container mx-auto p-4">
+      <Header user={loaderData} />
+      <div className="container mx-auto w-full px-2 py-2 md:w-11/12 md:px-0">
         <Outlet />
       </div>
+      <Footer />
     </>
   );
 };
