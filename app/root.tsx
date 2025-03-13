@@ -16,6 +16,7 @@ import {
   showToast,
 } from './components/shadcn/custom/custom-sonner';
 import { ReactCallRoots } from './components/shared/react-call';
+import { ThemeProvider } from './components/shared/theme-provider';
 import { siteConfig } from './config/site-config';
 import { commitSession, getSession } from './sessions.server';
 
@@ -55,15 +56,23 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="min-h-screen">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          storageKey="acme-theme"
+        >
+          {children}
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
