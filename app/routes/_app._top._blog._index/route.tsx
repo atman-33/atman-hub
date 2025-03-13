@@ -9,6 +9,7 @@ interface Post {
   updatedAt: Date;
 }
 
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const dummyPosts: Post[] = [
     {

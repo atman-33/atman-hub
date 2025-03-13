@@ -30,9 +30,6 @@ export const Header = ({ user }: HeaderProps) => {
             <div className="w-6">
               <SearchButton />
             </div>
-            <div className="w-6">
-              <ThemeDropdown />
-            </div>
             <Link to={siteConfig.links.github} target="_blank" rel="noreferrer">
               <FaGithub className="h-6 w-6" />
               <span className="sr-only">GitHub</span>
@@ -45,6 +42,9 @@ export const Header = ({ user }: HeaderProps) => {
               <FaTwitter className="h-6 w-6" />
               <span className="sr-only">Twitter</span>
             </Link>
+            <div className="w-6">
+              <ThemeDropdown />
+            </div>
           </nav>
           <div className="ml-4 flex items-center">
             <LoginButton user={user} />
