@@ -33,7 +33,7 @@ const AuthLayout = ({ loaderData }: Route.ComponentProps) => {
 
         {user && (
           <div className="flex items-center justify-center gap-2">
-            <div>{`Hello ${user?.name}`}</div>
+            <div>{`Hello ${user.name}`}</div>
             <Avatar>
               {user.image ? (
                 <>
