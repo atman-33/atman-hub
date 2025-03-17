@@ -59,20 +59,19 @@ export const LoginButton = ({ user }: LoginButtonProps) => {
           <DropdownMenuContent className="flex flex-col">
             <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* TODO: マイページの処理実装 */}
+            {/* TODO: #8 マイページの処理実装 */}
             <Link to={'/'}>
               <button type="button" className={dropdownButtonClass}>
                 <DropdownMenuItem>My page</DropdownMenuItem>
               </button>
             </Link>
-            {/* TODO: パスワード変更の処理実装 */}
+            {/* TODO: #16 パスワード変更の処理実装 */}
             <Link to={'/'}>
               <button type="button" className={dropdownButtonClass}>
                 <DropdownMenuItem>Change password</DropdownMenuItem>
               </button>
             </Link>
             <DropdownMenuSeparator />
-            {/* TODO: ログアウト処理実装 */}
             <button
               type="button"
               className={dropdownButtonClass}
