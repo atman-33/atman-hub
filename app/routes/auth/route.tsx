@@ -10,6 +10,8 @@ import { siteConfig } from '~/config/site-config';
 import { getSession } from '~/sessions.server';
 import type { Route } from './+types/route';
 
+import { Separator } from '~/components/shadcn/ui/separator';
+
 export const loader = async ({ request }: Route.LoaderArgs) => {
   // ログイン中のユーザー取得
   const session = await getSession(request.headers.get('Cookie'));
@@ -30,6 +32,8 @@ const AuthLayout = ({ loaderData }: Route.ComponentProps) => {
             </span>
           </Link>
         </div>
+
+        <Separator />
 
         {user && (
           <div className="flex items-center justify-center gap-2">
