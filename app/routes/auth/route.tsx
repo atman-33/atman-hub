@@ -1,6 +1,14 @@
-import { Form, Outlet, redirect } from 'react-router';
-import { Button } from '~/components/shadcn/ui/button';
-import { destroySession, getSession } from '~/sessions.server';
+import { MdAccountCircle } from 'react-icons/md';
+import { Link, Outlet } from 'react-router';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '~/components/shadcn/ui/avatar';
+import { Separator } from '~/components/shadcn/ui/separator';
+import { Logo } from '~/components/shared/logo';
+import { siteConfig } from '~/config/site-config';
+import { getSession } from '~/sessions.server';
 import type { Route } from './+types/route';
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
@@ -10,33 +18,39 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   return user;
 };
 
-export const action = async ({ request }: Route.ActionArgs) => {
-  // セッションを破棄してログアウト
-  const session = await getSession(request.headers.get('Cookie'));
-  return redirect('/auth/login', {
-    headers: { 'Set-Cookie': await destroySession(session) },
-  });
-};
-
 const AuthLayout = ({ loaderData }: Route.ComponentProps) => {
   const user = loaderData;
   return (
     <>
-      <div className="flex items-center justify-center gap-4 p-4">
-        <h1>{`Hello ${user?.name} さん`}</h1>
-        {user?.image && (
-          <img
-            src={user.image}
-            alt={user.name}
-            className="h-10 w-10 rounded-full"
-          />
+      <div className="flex flex-col justify-center">
+        <div className="m-4 flex justify-center">
+          <Link to="/" className="flex items-center gap-2 text-nowrap">
+            <Logo />
+            <span className="ml-2 text-nowrap font-bold text-lg md:text-xl">
+              {siteConfig.name}
+            </span>
+          </Link>
+        </div>
+
+        <Separator />
+
+        {user && (
+          <div className="flex items-center justify-center gap-2">
+            <div>{`Hello ${user.name}`}</div>
+            <Avatar>
+              {user.image ? (
+                <>
+                  <AvatarImage src={user.image} alt={user.name} />
+                  <AvatarFallback>{user.name}</AvatarFallback>
+                </>
+              ) : (
+                <MdAccountCircle className="h-10 w-10 text-primary" />
+              )}
+            </Avatar>
+          </div>
         )}
-        <Form method="post">
-          <Button type="submit" name="action" value="logout">
-            Logout
-          </Button>
-        </Form>
       </div>
+
       <Outlet />
     </>
   );

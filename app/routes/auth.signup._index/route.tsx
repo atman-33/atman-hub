@@ -88,7 +88,7 @@ const SignUpPage = ({ actionData }: Route.ComponentProps) => {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-5">
       <div className="w-[420px] rounded-2xl bg-white p-6">
-        <h2 className="mb-5 text-center font-extrabold text-3xl text-black-600">
+        <h2 className="mb-5 text-center font-extrabold text-2xl text-black-600">
           Create an account
         </h2>
         <Form method="POST" {...getFormProps(form)}>

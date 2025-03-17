@@ -1,23 +1,90 @@
 import type { User } from '@prisma/client';
+import { MdAccountCircle } from 'react-icons/md';
+import { Link, useSubmit } from 'react-router';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '~/components/shadcn/ui/avatar';
 import { Button } from '~/components/shadcn/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '~/components/shadcn/ui/dropdown-menu';
+import { AlertDialog } from '~/components/shared/react-call/alert-dialog';
 
 interface LoginButtonProps {
   user: Omit<User, 'password'> | undefined;
 }
 
 export const LoginButton = ({ user }: LoginButtonProps) => {
+  const submit = useSubmit();
+  const dropdownButtonClass = 'justify-baseline w-full';
+
+  const handleLogout = async () => {
+    const res = await AlertDialog.call({
+      message: 'Please confirm you want to log out.',
+    });
+
+    if (res === 'cancel') {
+      return;
+    }
+
+    submit(document.createElement('form'), {
+      method: 'post',
+      action: '/auth/logout',
+    });
+  };
+
   return (
     <>
       {user ? (
-        user?.image && (
-          <img
-            src={user.image}
-            alt={user.name}
-            className="h-10 w-10 rounded-full"
-          />
-        )
+        <DropdownMenu>
+          <DropdownMenuTrigger className="focus:!outline-none">
+            <Avatar>
+              {user.image ? (
+                <>
+                  <AvatarImage src={user.image} alt={user.name} />
+                  <AvatarFallback>{user.name}</AvatarFallback>
+                </>
+              ) : (
+                <MdAccountCircle className="h-10 w-10 text-primary" />
+              )}
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="flex flex-col">
+            <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {/* TODO: #8 マイページの処理実装 */}
+            <Link to={'/'}>
+              <button type="button" className={dropdownButtonClass}>
+                <DropdownMenuItem>My page</DropdownMenuItem>
+              </button>
+            </Link>
+            {/* TODO: #16 パスワード変更の処理実装 */}
+            <Link to={'/'}>
+              <button type="button" className={dropdownButtonClass}>
+                <DropdownMenuItem>Change password</DropdownMenuItem>
+              </button>
+            </Link>
+            <DropdownMenuSeparator />
+            <button
+              type="button"
+              className={dropdownButtonClass}
+              onClick={() => handleLogout()}
+            >
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </button>
+          </DropdownMenuContent>
+        </DropdownMenu>
       ) : (
-        <Button>Login</Button>
+        <Link to="/auth/login">
+          <Button className="h-8 font-bold">Log in</Button>
+        </Link>
       )}
     </>
   );

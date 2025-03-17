@@ -26,8 +26,8 @@ auth-utils.ts
 e.g.  
 
 ```tsx
-const handleSubmitForm = () => { /* 処理 */ };
-const handleClickButton = () => { /* 処理 */ };
+const handleFormSubmit = () => { /* 処理 */ };
+const handleButtonClick = () => { /* 処理 */ };
 ```
 
 ---
