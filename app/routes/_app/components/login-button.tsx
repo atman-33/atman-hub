@@ -23,6 +23,7 @@ interface LoginButtonProps {
 
 export const LoginButton = ({ user }: LoginButtonProps) => {
   const submit = useSubmit();
+  const dropdownButtonClass = 'justify-baseline w-full';
 
   const handleLogout = async () => {
     const res = await AlertDialog.call({
@@ -60,13 +61,13 @@ export const LoginButton = ({ user }: LoginButtonProps) => {
             <DropdownMenuSeparator />
             {/* TODO: マイページの処理実装 */}
             <Link to={'/'}>
-              <button type="button" className="justify-baseline w-full">
+              <button type="button" className={dropdownButtonClass}>
                 <DropdownMenuItem>My page</DropdownMenuItem>
               </button>
             </Link>
             {/* TODO: パスワード変更の処理実装 */}
             <Link to={'/'}>
-              <button type="button" className="justify-baseline w-full">
+              <button type="button" className={dropdownButtonClass}>
                 <DropdownMenuItem>Change password</DropdownMenuItem>
               </button>
             </Link>
@@ -74,7 +75,7 @@ export const LoginButton = ({ user }: LoginButtonProps) => {
             {/* TODO: ログアウト処理実装 */}
             <button
               type="button"
-              className="justify-baseline w-full"
+              className={dropdownButtonClass}
               onClick={() => handleLogout()}
             >
               <DropdownMenuItem>Logout</DropdownMenuItem>
