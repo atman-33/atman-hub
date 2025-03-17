@@ -57,7 +57,7 @@ export const LoginButton = ({ user }: LoginButtonProps) => {
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="flex flex-col">
-            <DropdownMenuLabel>{user.name} さん</DropdownMenuLabel>
+            <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {/* TODO: マイページの処理実装 */}
             <Link to={'/'}>
