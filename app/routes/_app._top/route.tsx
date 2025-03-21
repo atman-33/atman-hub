@@ -5,7 +5,7 @@ const AppTopLayout = () => {
   return (
     <>
       <div className="flex gap-12 rounded-md bg-foreground/5 px-8">
-        <AppNavLink to="/">Blog</AppNavLink>
+        <AppNavLink to="/">Posts</AppNavLink>
         <AppNavLink to="/Apps">Apps</AppNavLink>
         <AppNavLink to="/Tags">Tags</AppNavLink>
       </div>
