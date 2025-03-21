@@ -1,11 +1,5 @@
 import type { User } from '@prisma/client';
-import { MdAccountCircle } from 'react-icons/md';
 import { Link, useSubmit } from 'react-router';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '~/components/shadcn/ui/avatar';
 import { Button } from '~/components/shadcn/ui/button';
 import {
   DropdownMenu,
@@ -16,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '~/components/shadcn/ui/dropdown-menu';
 import { AlertDialog } from '~/components/shared/react-call/alert-dialog';
+import { UserAvatar } from '~/components/shared/user-avatar';
 
 interface LoginButtonProps {
   user: Omit<User, 'password'> | undefined;
@@ -45,22 +40,12 @@ export const LoginButton = ({ user }: LoginButtonProps) => {
       {user ? (
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:!outline-none">
-            <Avatar>
-              {user.image ? (
-                <>
-                  <AvatarImage src={user.image} alt={user.name} />
-                  <AvatarFallback>{user.name}</AvatarFallback>
-                </>
-              ) : (
-                <MdAccountCircle className="h-10 w-10 text-primary" />
-              )}
-            </Avatar>
+            <UserAvatar user={user} />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="flex flex-col">
             <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* TODO: #8 マイページの処理実装 */}
-            <Link to={'/'}>
+            <Link to={`/users/${user.id}/posts`}>
               <button type="button" className={dropdownButtonClass}>
                 <DropdownMenuItem>My page</DropdownMenuItem>
               </button>

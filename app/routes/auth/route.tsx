@@ -1,12 +1,7 @@
-import { MdAccountCircle } from 'react-icons/md';
 import { Link, Outlet } from 'react-router';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '~/components/shadcn/ui/avatar';
 import { Separator } from '~/components/shadcn/ui/separator';
 import { Logo } from '~/components/shared/logo';
+import { UserAvatar } from '~/components/shared/user-avatar';
 import { siteConfig } from '~/config/site-config';
 import { getSession } from '~/sessions.server';
 import type { Route } from './+types/route';
@@ -37,16 +32,7 @@ const AuthLayout = ({ loaderData }: Route.ComponentProps) => {
         {user && (
           <div className="flex items-center justify-center gap-2">
             <div>{`Hello ${user.name}`}</div>
-            <Avatar>
-              {user.image ? (
-                <>
-                  <AvatarImage src={user.image} alt={user.name} />
-                  <AvatarFallback>{user.name}</AvatarFallback>
-                </>
-              ) : (
-                <MdAccountCircle className="h-10 w-10 text-primary" />
-              )}
-            </Avatar>
+            <UserAvatar user={user} />
           </div>
         )}
       </div>
