@@ -45,7 +45,7 @@ export const LoginButton = ({ user }: LoginButtonProps) => {
           <DropdownMenuContent className="flex flex-col">
             <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link to={`/users/${user.id}`}>
+            <Link to={`/users/${user.id}/posts`}>
               <button type="button" className={dropdownButtonClass}>
                 <DropdownMenuItem>My page</DropdownMenuItem>
               </button>
