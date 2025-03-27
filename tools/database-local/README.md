@@ -91,7 +91,7 @@ docker-compose --version
     postgres:
       container_name: atman_hub_db_dev # {app_name}_db_{env}
       build: ./image/postgres # Build the image from the Dockerfile in the image/postgres directory
-      restart: no # Do not restart the container automatically
+      restart: unless-stopped # Restart the container automatically unless it was explicitly stopped
       ports:
         - 5432:5432
       volumes:
@@ -172,3 +172,25 @@ SHOW search_path;
 ```
 
 このコマンドは、PostgreSQL クライアントを終了します。
+
+## 4️⃣ 開発時の Docker コンテナの起動と停止
+
+### 4.1 開発時の Docker コンテナの起動
+
+開発を開始する際には、以下のコマンドで Docker コンテナを起動します。
+
+```bash
+docker compose -f tools/database-local/compose.yaml start
+```
+
+このコマンドは、Docker Composeを使用してPostgreSQLデータベースを起動します。
+
+### 4.2 開発時の Docker コンテナの停止
+
+開発を終了する際には、以下のコマンドで Docker コンテナを停止します。
+
+```bash
+docker compose -f tools/database-local/compose.yaml stop
+```
+
+このコマンドは、Docker Composeを使用してPostgreSQLデータベースを停止します。
