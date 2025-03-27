@@ -1,0 +1,17 @@
+services:
+  postgres:
+    container_name: atman_hub_db_dev # {app_name}_db_{env}
+    build: ./image/postgres # Build the image from the Dockerfile in the image/postgres directory
+    restart: no # Do not restart the container automatically
+    ports:
+      - 5432:5432
+    volumes:
+      - atman_hub_db_dev_data:/data/db # {app_name}_db_{env}_data
+      - ./init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: atman_hub_db_dev # {app_name}_db_{env}
+
+volumes:
+  atman_hub_db_dev_data:
