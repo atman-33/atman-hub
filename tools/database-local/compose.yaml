@@ -2,7 +2,7 @@ services:
   postgres:
     container_name: atman_hub_db_dev # {app_name}_db_{env}
     build: ./image/postgres # Build the image from the Dockerfile in the image/postgres directory
-    restart: no # Do not restart the container automatically
+    restart: unless-stopped # Restart the container automatically unless it was explicitly stopped
     ports:
       - 5432:5432
     volumes:
