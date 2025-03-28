@@ -10,9 +10,8 @@
 
 ### テストフレームワーク
 
-*   **Jest:** JavaScriptテストフレームワーク
+*   **Vitest:** JavaScriptテストフレームワーク
 *   **React Testing Library:** Reactコンポーネントのテストライブラリ
-*   **Cypress:** E2Eテストフレームワーク
 
 ### テスト戦略
 
