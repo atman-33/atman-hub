@@ -37,3 +37,22 @@ Refs: #123
 - コミットメッセージの先頭は動詞の原形にする
 - コミットメッセージの末尾に句読点をつけない
 - コミットメッセージは英語で書く
+
+## プルリクエスト
+
+プルリクエストを出す際は、以下のフォーマットに従ってください。
+
+```txt
+## Overview  
+<!-- Briefly describe the purpose of this Pull Request. -->
+
+## Changes  
+
+- Change 1  
+- Change 2  
+- Change 3  
+
+## Related Issue  
+
+- Issue number (e.g., #123)
+```
