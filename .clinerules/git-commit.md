@@ -37,3 +37,26 @@ Refs: #123
 - コミットメッセージの先頭は動詞の原形にする
 - コミットメッセージの末尾に句読点をつけない
 - コミットメッセージは英語で書く
+
+## プルリクエスト
+
+プルリクエストを作成する際は、以下の手順に従ってください。
+
+1.  まず、PRのbodyを記述した`pr_body.txt`ファイルを作成します。
+2.  次に、作成した`pr_body.txt`ファイルを`--body-file`オプションで指定して、`gh pr create`コマンドを実行し、PRを作成します。
+3.  PRが作成されたら、不要になった`pr_body.txt`ファイルを削除します。
+
+```txt
+## Overview  
+<!-- Briefly describe the purpose of this Pull Request. -->
+
+## Changes  
+
+- Change 1  
+- Change 2  
+- Change 3  
+
+## Related Issue  
+
+- Issue number (e.g., #123)
+```
