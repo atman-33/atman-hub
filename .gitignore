@@ -11,6 +11,9 @@
 # Storybook
 *storybook.log
 
+# Temp
+/.temp
+
 # DB
 /prisma/dev.db
 /prisma/dev.db-journal
