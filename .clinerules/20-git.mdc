@@ -1,3 +1,8 @@
+---
+description: Gitに関するルール
+globs: *
+alwaysApply: true
+---
 # Git Rules
 
 ## コミット
@@ -62,4 +67,3 @@ Refs: #123
 ## Related Issue  
 
 - Issue number (e.g., #123)
-```

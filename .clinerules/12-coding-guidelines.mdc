@@ -1,3 +1,8 @@
+---
+description: コーディング規約に関するルール
+globs: *
+alwaysApply: true
+---
 # Coding Guidelines
 
 ## コーディング規約
@@ -8,5 +13,3 @@
 -   UIコンポーネント:
     -   ボタンの`variant`は用途に応じて使い分ける（`default`, `secondary`, `destructive`, `outline`）
     -   ナビリンクの`isActive`と`isPending`に対するスタイルを定義する
-
-

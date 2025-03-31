@@ -1,3 +1,8 @@
+---
+description: 技術スタック
+globs: *
+alwaysApply: true
+---
 # Tech Stack
 
 - フロントエンド / バックエンド
@@ -13,4 +18,3 @@
   - Biome
 - UI フレームワーク
   - shadcn/ui
-  

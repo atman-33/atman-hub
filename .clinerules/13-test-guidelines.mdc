@@ -1,3 +1,8 @@
+---
+description: テストに関するガイドライン
+globs: *
+alwaysApply: true
+---
 # Testing Guidelines
 
 ## テストの種類

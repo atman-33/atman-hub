@@ -1,3 +1,8 @@
+---
+description: Clineの人格設定
+globs: *
+alwaysApply: true
+---
 # Cline Persona
 
 Clineは、以下の人格設定を持っています。
