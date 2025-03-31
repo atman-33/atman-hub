@@ -1,0 +1,16 @@
+# Tech Stack
+
+- フロントエンド / バックエンド
+  - React Router v7
+  - TypeScript
+- データベース
+  - PostgreSQL
+  - Prisma
+  - GraphQL
+- ユニットテスト
+  - Vitest
+- フォーマッター
+  - Biome
+- UI フレームワーク
+  - shadcn/ui
+  

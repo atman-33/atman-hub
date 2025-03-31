@@ -1,0 +1,12 @@
+# Coding Guidelines
+
+## コーディング規約
+
+-   ファイル命名規則: ケバブケース（例: `button.tsx`, `auth-utils.ts`）
+-   関数記述方法: TypeScriptのアロー関数
+-   メソッド命名規則: イベントハンドラは`handle + 対象 + Event内容`（例: `handleSubmitForm`, `handleClickButton`）
+-   UIコンポーネント:
+    -   ボタンの`variant`は用途に応じて使い分ける（`default`, `secondary`, `destructive`, `outline`）
+    -   ナビリンクの`isActive`と`isPending`に対するスタイルを定義する
+
+
