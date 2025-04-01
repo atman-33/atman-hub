@@ -13,7 +13,7 @@ import { AlertDialog } from '~/components/shared/react-call/alert-dialog';
 import { UserAvatar } from '~/components/shared/user-avatar';
 
 interface LoginButtonProps {
-  user: Omit<User, 'password'> | undefined;
+  user: Omit<User, 'password'> | null | undefined;
 }
 
 export const LoginButton = ({ user }: LoginButtonProps) => {

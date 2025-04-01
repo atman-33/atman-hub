@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router';
-import { getSession } from '~/sessions.server';
+import { prisma } from '~/.server/lib/prisma-client';
+import { destroySession, getSession } from '~/sessions.server';
 import type { Route } from './+types/route';
 import { Footer } from './components/footer';
 import { Header } from './components/header';
@@ -8,6 +9,19 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   // ログイン中のユーザー取得
   const session = await getSession(request.headers.get('Cookie'));
   const user = session.get('user');
+
+  // DBにユーザーが存在しない場合はセッションを破棄
+  if (user) {
+    const databaseUser = await prisma.user.findUnique({
+      where: { id: user.id },
+    });
+
+    if (!databaseUser) {
+      await destroySession(session);
+      return null;
+    }
+  }
+
   return user;
 };
 
