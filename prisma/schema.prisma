@@ -65,4 +65,52 @@ model User {
   provider  String   @default("Credentials")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  posts Post[]
+}
+
+model Post {
+  id        String     @id @default(uuid())
+  title     String     @db.VarChar(255) // タイトルの文字数制限を追加
+  emoji     String // 投稿を表す絵文字（例: カテゴリや感情）
+  content   String     @db.Text // 長文対応のためText型を指定
+  tags      PostTag[]
+  status    PostStatus @default(DRAFT)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onUpdate: Cascade)
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLIC
+}
+
+model Tag {
+  id        String   @id @default(uuid()) @map("_id")
+  name      String   @unique @db.VarChar(50) // タグ名の文字数制限を追加
+  image     String? // タグを表す画像URL（任意）
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Postとのリレーション
+  posts PostTag[]
+}
+
+model PostTag {
+  id         String   @id @default(uuid())
+  postId     String
+  tagId      String
+  assignedAt DateTime @default(now()) // タグが投稿に関連付けられた日時
+
+  // Postとのリレーション
+  post Post @relation(fields: [postId], references: [id], onUpdate: Cascade)
+
+  // Tagとのリレーション
+  tag Tag @relation(fields: [tagId], references: [id], onUpdate: Cascade)
+
+  // ユニーク制約
+  @@unique(fields: [postId, tagId])
 }
