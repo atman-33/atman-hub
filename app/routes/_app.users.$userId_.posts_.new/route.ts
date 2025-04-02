@@ -6,7 +6,6 @@ import type { Route } from './+types/route';
 export const action = async ({ request, params }: Route.ActionArgs) => {
   const formData = await request.formData();
   const { _action } = Object.fromEntries(formData);
-  console.log('_acton', _action);
 
   switch (_action) {
     case 'new': {
