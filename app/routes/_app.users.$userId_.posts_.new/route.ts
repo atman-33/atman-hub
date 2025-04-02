@@ -1,6 +1,5 @@
+import { randomUUID } from 'node:crypto';
 import { redirect } from 'react-router';
-import { prisma } from '~/.server/lib/prisma-client';
-import { commitSession, getSession } from '~/sessions.server';
 import type { Route } from './+types/route';
 
 export const action = async ({ request, params }: Route.ActionArgs) => {
@@ -9,25 +8,10 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 
   switch (_action) {
     case 'new': {
-      const res = await prisma.post.create({
-        data: {
-          title: 'draft',
-          emoji: '📝',
-          content: '',
-          author: { connect: { id: params.userId } },
-        },
-      });
-
-      const session = await getSession(request.headers.get('Cookie'));
-      session.flash('toast', {
-        type: 'success',
-        message: 'Post successfully created!',
-      });
-
+      // 新規ポスト用にUUIDを生成
       const { userId } = params;
-      return redirect(`/users/${userId}/posts/${res.id}/edit`, {
-        headers: { 'Set-Cookie': await commitSession(session) },
-      });
+      const newPostId = randomUUID();
+      return redirect(`/users/${userId}/posts/${newPostId}/edit`);
     }
 
     default: {
