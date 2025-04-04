@@ -1,7 +1,8 @@
 import { getFormProps } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
+import { useRef } from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
-import { Link, redirect, useFetcher } from 'react-router';
+import { Link, redirect, useFetcher, useSubmit } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { Button } from '~/components/shadcn/ui/button';
 import { Label } from '~/components/shadcn/ui/label';
@@ -60,7 +61,7 @@ export const action = async ({ params, request }: Route.ActionArgs) => {
     message: 'Post content successfully saved!',
   });
 
-  return redirect('./', {
+  return redirect('.', {
     headers: { 'Set-Cookie': await commitSession(session) },
   });
 };
@@ -72,10 +73,13 @@ export const EditPostPage = ({
   const { userId } = loaderData;
   const [form, { emoji, title, content }] = useEditPostForm();
   const fetcher = useFetcher<typeof actionData>();
+  const formRef = useRef<HTMLFormElement>(null);
+  const submit = useSubmit();
 
   return (
     <fetcher.Form
       {...getFormProps(form)}
+      ref={formRef}
       method="post"
       className="flex flex-col"
     >
@@ -100,6 +104,12 @@ export const EditPostPage = ({
             disabled={
               fetcher.state === 'submitting' || fetcher.state === 'loading'
             }
+            onClick={() => {
+              form.validate();
+              submit(formRef.current, {
+                replace: true,
+              });
+            }}
           >
             Save Draft
           </Button>
