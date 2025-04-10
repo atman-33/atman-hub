@@ -1,4 +1,9 @@
-# Git Commit Rules
+---
+description: Gitに関するルール
+globs: *
+alwaysApply: true
+---
+# Git Rules
 
 ## コミット
 コミットする前は、実行してよいかどうかを確認してください。
@@ -62,4 +67,3 @@ Refs: #123
 ## Related Issue  
 
 - Issue number (e.g., #123)
-```

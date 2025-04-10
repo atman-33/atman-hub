@@ -8,7 +8,7 @@ import { SearchButton } from './search-button';
 import { ThemeDropdown } from './theme-dropdown';
 
 interface HeaderProps {
-  user: Omit<User, 'password'> | undefined;
+  user: Omit<User, 'password'> | null | undefined;
 }
 
 export const Header = ({ user }: HeaderProps) => {

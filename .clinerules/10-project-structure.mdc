@@ -1,0 +1,47 @@
+---
+description: プロジェクト構造に関するルール
+globs: *
+alwaysApply: true
+---
+# Project Structure
+
+## プロジェクト構造
+
+-   `app`フォルダ直下:
+    -   `public`: 静的ファイル
+    -   `components`: 共有コンポーネント
+    -   `config`: グローバル設定
+    -   `constants`: グローバル定数
+    -   `hooks`: 共有フック
+    -   `lib`: 再利用可能なライブラリ
+    -   `providers`: 共有プロバイダ
+    -   `routes`: React Router用ルーティング
+    -   `services`: 共有ビジネスロジック
+    -   `stores`: グローバル状態ストア
+    -   `testing`: テストユーティリティ
+    -   `types`: 共有タイプ
+    -   `utils`: 共有ユーティリティ関数
+    -   `sessions.server.ts`: セッションストレージ
+-   `app/components`:
+    -   `shadcn/`: shadcn/uiコンポーネント
+    -   `shared/`: カスタムの共通コンポーネント
+-   `lib`:
+    -   各フォルダ内に`index.ts`を配置し、エクスポートを管理する
+-   `routes`:
+    -   コロケーションを活用し、レイアウトとページの各フォルダに関連するファイルを集約する
+
+## GraphQLフォルダ構造
+
+-   モジュール管理:
+    -   エンティティごとにフォルダを分離する（例: `post/`, `user/`）
+    -   各モジュール内でDTO, モデル, リゾルバを管理する
+    -   モジュールのエントリーポイントを統一する
+-   フォルダ構造:
+    -   `builder.ts`: スキーマ構築のエントリーポイント
+    -   `context.ts`: GraphQLコンテキストオブジェクトの定義
+    -   `modules/`: 各エンティティのフォルダ
+    -   `dto/`: GraphQLのデータ転送オブジェクト (DTO)
+    -   `post.type.ts`: GraphQLのオブジェクトタイプ定義
+    -   `post.resolver.ts`: クエリやミューテーションのリゾルバ定義
+    -   `post.module.ts`: 各コンポーネントのエントリーポイント
+    -   `schema.ts`: すべてのモジュールを統合するエントリーポイント
