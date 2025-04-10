@@ -1,6 +1,6 @@
 import { getFormProps } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
-import { useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import { Link, redirect, useFetcher, useSubmit } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
@@ -9,13 +9,13 @@ import { Label } from '~/components/shadcn/ui/label';
 import { Switch } from '~/components/shadcn/ui/switch';
 import { Textarea } from '~/components/shadcn/ui/textarea';
 import { ConformInput } from '~/components/shared/conform/conform-input';
-import { ConformTextarea } from '~/components/shared/conform/conform-textarea';
 import { commitSession, getSession } from '~/sessions.server';
 import type { Route } from './+types/route';
 import {
   editPostFormSchema,
   useEditPostForm,
 } from './hooks/use-edit-post-form';
+import { useMarkdownEditor } from './hooks/use-markdown-editor';
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
   // TODO: 既存のポストを取得する処理を追加
@@ -71,16 +71,45 @@ export const EditPostPage = ({
   actionData,
 }: Route.ComponentProps) => {
   const { userId } = loaderData;
-  const [form, { emoji, title, content }] = useEditPostForm();
+  const [form, { emoji, title }] = useEditPostForm();
   const fetcher = useFetcher<typeof actionData>();
   const formRef = useRef<HTMLFormElement>(null);
   const submit = useSubmit();
+
+  // 記事の内容（content）をMarkdownエディタに表示するためのstate
+  const [doc, setDoc] = useState<null | string>(null);
+
+  /**
+   * Markdownエディタの内容を保存する
+   */
+  const save = useCallback(() => {
+    if (!formRef.current) {
+      return;
+    }
+
+    // Conformのvalidateを実行
+    form.validate();
+
+    // FormDataを作成して、content: doc を追加
+    const formData = new FormData(formRef.current);
+    formData.set('content', doc || ''); // docの値をcontentフィールドに設定
+
+    submit(formData, {
+      method: 'post',
+      replace: true,
+    });
+  }, [doc, submit, form]);
+
+  const { editor } = useMarkdownEditor({
+    doc,
+    setDoc,
+    save,
+  });
 
   return (
     <fetcher.Form
       {...getFormProps(form)}
       ref={formRef}
-      method="post"
       className="flex flex-col"
     >
       <div className="flex justify-between py-4">
@@ -104,11 +133,9 @@ export const EditPostPage = ({
             disabled={
               fetcher.state === 'submitting' || fetcher.state === 'loading'
             }
-            onClick={() => {
-              form.validate();
-              submit(formRef.current, {
-                replace: true,
-              });
+            onClick={(e) => {
+              e.preventDefault(); // NOTE: 手動フォーム送信させたいため、ブラウザによるフォーム送信を止める
+              save();
             }}
           >
             Save Draft
@@ -143,14 +170,15 @@ export const EditPostPage = ({
 
       <div className="flex flex-1 gap-4 pt-4">
         <div className="flex-1">
-          <ConformTextarea
-            metadata={content}
+          {/* 記事エディター（div要素を利用しなくてはならない） */}
+          <div
             aria-label="Content"
             id="content"
-            placeholder="Input"
-            name="content"
+            ref={editor}
+            className="rounded-md border"
           />
         </div>
+        {/* 記事プレビュー */}
         <Textarea placeholder="Preview" className="flex-1" readOnly />
       </div>
     </fetcher.Form>
