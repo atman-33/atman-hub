@@ -78,6 +78,23 @@ docker-compose --version
 
 バージョン情報が表示されれば、インストールは成功です。
 
+### 2.3 Dockerソケットへのアクセス権限を追加
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+グループに含まれたかどうか確認します。
+
+```bash
+grep docker /etc/group
+```
+
+> Linux 環境（WSL含む）で Docker を実行するには、Docker ソケット /var/run/docker.sock にアクセスする必要があります。このファイルは通常、root または docker グループのメンバーだけがアクセス可能です。
+> $USER は 現在のログインユーザー名 を指す 環境変数
+
+⚠上記を実行したにも関わらず、dockerコマンドがエラーとなる場合は、VSCodeを再起動してみてください。
+
 ## 3️⃣ データベースの構築
 
 ### 3.1 ファイルの準備
