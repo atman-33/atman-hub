@@ -4,11 +4,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '../shadcn/ui/avatar';
 
 interface UserAvatarProps {
   user: Omit<User, 'password'> | undefined;
+  className?: string;
 }
 
-export const UserAvatar = ({ user }: UserAvatarProps) => {
+export const UserAvatar = ({ user, className }: UserAvatarProps) => {
   return (
-    <Avatar>
+    <Avatar className={className}>
       {user?.image ? (
         <>
           <AvatarImage src={user.image} alt={user.name} />

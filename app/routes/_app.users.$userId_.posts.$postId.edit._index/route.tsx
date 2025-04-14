@@ -2,7 +2,7 @@ import { getFormProps } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { useCallback, useRef, useState } from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
-import { Link, redirect, useFetcher, useSubmit } from 'react-router';
+import { Link, data, redirect, useFetcher, useSubmit } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { Button } from '~/components/shadcn/ui/button';
 import { Label } from '~/components/shadcn/ui/label';
@@ -18,8 +18,17 @@ import {
 import { useMarkdownEditor } from './hooks/use-markdown-editor';
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
-  // TODO: 既存のポストを取得する処理を追加
-  return { userId: params.userId, postId: params.postId };
+  const post = await prisma.post.findUnique({
+    where: { id: params.postId },
+  });
+
+  if (!post) {
+    throw data('Post Not Found', { status: 404 });
+  }
+
+  // TODO: 取得したポストのAuthorIdとparams.userIdが一致するか確認する処理を追加
+
+  return { userId: params.userId, postId: params.postId, post };
 };
 
 export const action = async ({ params, request }: Route.ActionArgs) => {
@@ -70,14 +79,14 @@ export const EditPostPage = ({
   loaderData,
   actionData,
 }: Route.ComponentProps) => {
-  const { userId } = loaderData;
+  const { userId, post } = loaderData;
   const [form, { emoji, title }] = useEditPostForm();
   const fetcher = useFetcher<typeof actionData>();
   const formRef = useRef<HTMLFormElement>(null);
   const submit = useSubmit();
 
   // 記事の内容（content）をMarkdownエディタに表示するためのstate
-  const [doc, setDoc] = useState<null | string>(null);
+  const [doc, setDoc] = useState<null | string>(post?.content || null);
 
   /**
    * Markdownエディタの内容を保存する
@@ -151,6 +160,7 @@ export const EditPostPage = ({
             id="emoji"
             name="emoji"
             type="text"
+            defaultValue={post?.emoji}
             className="w-12"
           />
         </div>
@@ -163,6 +173,7 @@ export const EditPostPage = ({
               id="title"
               name="title"
               type="text"
+              defaultValue={post?.title}
             />
           </div>
         </div>
