@@ -20,6 +20,7 @@ const transformerAddCopyButton = (
         properties: {
           className: ['copy'],
           dataCode: this.source,
+          type: 'button',
         },
         children: [
           {
