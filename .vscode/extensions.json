@@ -2,6 +2,7 @@
   "recommendations": [
     "biomejs.biome",
     "vitest.explorer",
-    "nuxt.mdc"
+    "nuxt.mdc",
+    "bradlc.vscode-tailwindcss"
   ]
 }
