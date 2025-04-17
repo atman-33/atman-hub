@@ -40,26 +40,28 @@ const transformerAddCopyButton = (
 
       node.children.push(button);
 
-      // ボタンを後で取得してイベントをバインドする。
-      // NOTE:
-      // node.children.push(button)のようなコードでノードツリーを更新すると、DOMへの反映が即座に行われるとは限らない。
-      // そのため、setTimeout(0)で現在の同期タスクが完了した後、次のマイクロタスクが完了した段階で実行するように制御している。
-      setTimeout(() => {
+      // MutationObserverを使用してボタンにイベントをバインド
+      const observer = new MutationObserver(() => {
         const buttons = document.querySelectorAll('button.copy');
-        // console.log('buttons: ', buttons);
         for (const btn of buttons) {
-          // console.log('btn: ', btn);
-          btn.addEventListener('click', () => {
-            console.log('clicked!');
-            const code = btn.getAttribute('data-code');
-            if (code) {
-              navigator.clipboard.writeText(code);
-              btn.classList.add('copied');
-              setTimeout(() => btn.classList.remove('copied'), toggleMs);
-            }
-          });
+          if (!btn.hasAttribute('data-bound')) {
+            btn.setAttribute('data-bound', 'true'); // 二重バインド防止
+            btn.addEventListener('click', () => {
+              // console.log('clicked!');
+              const code = btn.getAttribute('data-code');
+              if (code) {
+                navigator.clipboard.writeText(code);
+                btn.classList.add('copied');
+                setTimeout(() => btn.classList.remove('copied'), toggleMs);
+              }
+            });
+          }
         }
-      }, 0);
+      });
+
+      // 監視対象のノードを指定
+      // NOTE: 監視対象のノードを指定しないと、ページ遷移した直後にボタンがクリックできない
+      observer.observe(document.body, { childList: true, subtree: true });
     },
   };
 };
