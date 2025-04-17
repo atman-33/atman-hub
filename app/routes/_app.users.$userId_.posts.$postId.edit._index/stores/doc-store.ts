@@ -43,7 +43,9 @@ export const useDocStore = create<DocStore>((set, get) => {
         const rawHtml = marked.parse(doc);
         const sanitizedHtml = DOMPurify.sanitize(rawHtml as string);
         set({ docHtml: sanitizedHtml });
+        return;
       }
+      set({ docHtml: '' });
     },
     resetDoc: () => {
       set({ doc: '', docHtml: '' });
