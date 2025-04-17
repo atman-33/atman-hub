@@ -1,21 +1,22 @@
 import { getFormProps } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import { Link, data, redirect, useFetcher, useSubmit } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { Button } from '~/components/shadcn/ui/button';
 import { Label } from '~/components/shadcn/ui/label';
 import { Switch } from '~/components/shadcn/ui/switch';
-import { Textarea } from '~/components/shadcn/ui/textarea';
 import { ConformInput } from '~/components/shared/conform/conform-input';
 import { commitSession, getSession } from '~/sessions.server';
 import type { Route } from './+types/route';
+import { Preview } from './components/preview';
 import {
   editPostFormSchema,
   useEditPostForm,
 } from './hooks/use-edit-post-form';
 import { useMarkdownEditor } from './hooks/use-markdown-editor';
+import { useDocStore } from './stores/doc-store';
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const post = await prisma.post.findUnique({
@@ -86,7 +87,17 @@ export const EditPostPage = ({
   const submit = useSubmit();
 
   // 記事の内容（content）をMarkdownエディタに表示するためのstate
-  const [doc, setDoc] = useState<null | string>(post?.content || null);
+  // TODO: これをuseStateではなく、zustandの状態管理ライブラリに変更してグローバル管理する
+  // const [doc, setDoc] = useState<null | string>(post?.content || null);
+  const doc = useDocStore((state) => state.doc);
+  const setDoc = useDocStore((state) => state.setDoc);
+
+  useEffect(() => {
+    // 記事の内容（content）をMarkdownエディタに表示するためのstateを更新
+    if (post?.content) {
+      setDoc(post.content);
+    }
+  }, [post?.content, setDoc]);
 
   /**
    * Markdownエディタの内容を保存する
@@ -190,7 +201,7 @@ export const EditPostPage = ({
           />
         </div>
         {/* 記事プレビュー */}
-        <Textarea placeholder="Preview" className="flex-1" readOnly />
+        <Preview className="flex-1" />
       </div>
     </fetcher.Form>
   );

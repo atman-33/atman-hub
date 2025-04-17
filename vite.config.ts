@@ -13,5 +13,8 @@ export default defineConfig(({ mode }) => {
     server: {
       port: Number.parseInt(env.PORT || '5173'),
     },
+    build: {
+      target: 'es2022',
+    },
   };
 });

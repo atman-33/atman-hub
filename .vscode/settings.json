@@ -22,13 +22,11 @@
     "quickfix.biome": "always",
     "source.organizeImports.biome": "always"
   },
-  "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
-    {
-      "file": "pull_request_template.md",
-      "prompt": "Generate a pull request description using the structure and headings defined in the provided template. Fill in each section with appropriate and concise content based on the code changes. Use clear and professional language."
-    }
-  ],
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "mdc.enableFormatting": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
   }
 }
