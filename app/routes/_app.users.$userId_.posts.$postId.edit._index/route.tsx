@@ -2,7 +2,7 @@ import { getFormProps } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { useCallback, useEffect, useRef } from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
-import { Link, data, redirect, useFetcher, useSubmit } from 'react-router';
+import { Link, redirect, useFetcher, useSubmit } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { Button } from '~/components/shadcn/ui/button';
 import { Label } from '~/components/shadcn/ui/label';
@@ -19,13 +19,10 @@ import { useMarkdownEditor } from './hooks/use-markdown-editor';
 import { useDocStore } from './stores/doc-store';
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
+  // NOTE: postがnullの場合、新規作成のため、nullを返すこと。エラーを投げないこと
   const post = await prisma.post.findUnique({
     where: { id: params.postId },
   });
-
-  if (!post) {
-    throw data('Post Not Found', { status: 404 });
-  }
 
   // TODO: 取得したポストのAuthorIdとparams.userIdが一致するか確認する処理を追加
 
