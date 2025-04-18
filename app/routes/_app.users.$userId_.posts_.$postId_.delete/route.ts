@@ -15,6 +15,8 @@ export const action = async ({ params, request }: Route.ActionArgs) => {
     message: 'Post successfully deleted!',
   });
 
+  // TODO: 削除が失敗した際の処理（トースト表示）の追加も必要
+
   return redirect(`/users/${params.userId}/posts`, {
     headers: { 'Set-Cookie': await commitSession(session) },
   });
