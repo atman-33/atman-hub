@@ -21,7 +21,6 @@ export const PostListItemThreeDots = ({ post }: PostListItemThreeDotsProps) => {
   const submit = useSubmit();
 
   const handleDeleteSubmit = async (event: React.FormEvent) => {
-    console.log('handleDeleteSubmit');
     // フォームの送信をキャンセル
     event.preventDefault();
 
