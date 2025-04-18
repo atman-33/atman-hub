@@ -1,6 +1,6 @@
 import type { Post } from '@prisma/client';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { Link, useParams } from 'react-router';
+import { Form, Link, useParams, useSubmit } from 'react-router';
 
 import {
   DropdownMenu,
@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '~/components/shadcn/ui/dropdown-menu';
+import { AlertDialog } from '~/components/shared/react-call/alert-dialog';
 
 interface PostListItemThreeDotsProps {
   post: Post;
@@ -17,6 +18,26 @@ interface PostListItemThreeDotsProps {
 
 export const PostListItemThreeDots = ({ post }: PostListItemThreeDotsProps) => {
   const { userId } = useParams<{ userId: string }>();
+  const submit = useSubmit();
+
+  const handleDeleteSubmit = async (event: React.FormEvent) => {
+    // フォームの送信をキャンセル
+    event.preventDefault();
+
+    const res = await AlertDialog.call({
+      message: 'Please confirm you want to delete this post.',
+    });
+
+    if (res === 'cancel') {
+      return;
+    }
+
+    const formData = event.currentTarget as HTMLFormElement;
+    submit(formData, {
+      method: 'post',
+      action: `/users/${userId}/posts/${post?.id}/delete`,
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -31,9 +52,11 @@ export const PostListItemThreeDots = ({ post }: PostListItemThreeDotsProps) => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link to={`/users/${userId}/posts/${post?.id}/delete`}>
-            <DropdownMenuItem>🗑️ Delete</DropdownMenuItem>
-          </Link>
+          <Form onSubmit={(e) => handleDeleteSubmit(e)}>
+            <DropdownMenuItem>
+              <button type="submit">🗑️ Delete</button>
+            </DropdownMenuItem>
+          </Form>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
