@@ -151,6 +151,7 @@ export const useMarkdownEditor = ({
         // 画像ファイルがドラッグ＆ドロップされたときの処理
         // ref: https://developer.mozilla.org/ja/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop#%E3%83%89%E3%83%AD%E3%83%83%E3%83%97%E3%81%AE%E5%87%A6%E7%90%86
         drop(event, view) {
+          // console.log('drop');
           if (!event.dataTransfer) return;
 
           const insertText = (url: string) => {
@@ -197,6 +198,7 @@ export const useMarkdownEditor = ({
 
         // 画像ファイルがペーストされたときの処理
         paste(event, view) {
+          // console.log('paste');
           if (!event.clipboardData?.files?.length) return;
 
           for (let i = 0; i < event.clipboardData.files.length; i++) {

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import { Link, redirect, useFetcher, useSubmit } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
+import { showToast } from '~/components/shadcn/custom/custom-sonner';
 import { Button } from '~/components/shadcn/ui/button';
 import { Label } from '~/components/shadcn/ui/label';
 import { Switch } from '~/components/shadcn/ui/switch';
@@ -84,8 +85,6 @@ export const EditPostPage = ({
   const submit = useSubmit();
 
   // 記事の内容（content）をMarkdownエディタに表示するためのstate
-  // TODO: これをuseStateではなく、zustandの状態管理ライブラリに変更してグローバル管理する
-  // const [doc, setDoc] = useState<null | string>(post?.content || null);
   const doc = useDocStore((state) => state.doc);
   const setDoc = useDocStore((state) => state.setDoc);
 
@@ -117,10 +116,52 @@ export const EditPostPage = ({
     });
   }, [doc, submit, form]);
 
+  /**
+   * 画像をアップロードする
+   */
+  const imageUpload = useCallback(
+    async (file: File, onUploadComplete: (url: string) => void) => {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const res = await fetch('/resource/upload-image', {
+          method: 'POST',
+          body: formData,
+        });
+        const json = await res.json();
+        console.log('Upload result:', json);
+
+        if (json.status !== 'success') {
+          showToast(
+            'Error',
+            {
+              description: `${json.message} (${json.error})`,
+            },
+            'error',
+          );
+          return;
+        }
+        onUploadComplete(json.url);
+      } catch (error) {
+        console.error('Image upload failed:', error);
+        showToast(
+          'Error',
+          {
+            description:
+              error instanceof Error ? error.message : 'Unknown error',
+          },
+          'error',
+        );
+      }
+    },
+    [],
+  );
+
   const { editor } = useMarkdownEditor({
     doc,
     setDoc,
     save,
+    imageUpload,
   });
 
   return (
