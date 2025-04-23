@@ -7,6 +7,14 @@ export const action = async ({ request }: Route.ActionArgs) => {
   // console.log('Received file:', file);
   if (!(file instanceof File)) {
     console.error('The received file is not a valid File object.');
+    return Response.json(
+      {
+        status: 'error',
+        message: 'Invalid file uploaded',
+        error: 'The received file is not a valid File object',
+      },
+      { status: 400 },
+    );
   }
 
   try {
