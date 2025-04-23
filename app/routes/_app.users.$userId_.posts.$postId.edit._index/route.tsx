@@ -85,8 +85,6 @@ export const EditPostPage = ({
   const submit = useSubmit();
 
   // 記事の内容（content）をMarkdownエディタに表示するためのstate
-  // TODO: これをuseStateではなく、zustandの状態管理ライブラリに変更してグローバル管理する
-  // const [doc, setDoc] = useState<null | string>(post?.content || null);
   const doc = useDocStore((state) => state.doc);
   const setDoc = useDocStore((state) => state.setDoc);
 
