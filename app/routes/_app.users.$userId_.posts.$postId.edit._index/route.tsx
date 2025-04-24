@@ -132,26 +132,17 @@ export const EditPostPage = ({
         console.log('Upload result:', json);
 
         if (json.status !== 'success') {
-          showToast(
-            'Error',
-            {
-              description: `${json.message} (${json.error})`,
-            },
-            'error',
-          );
+          showToast('error', 'Error', {
+            description: `${json.message} (${json.error})`,
+          });
           return;
         }
         onUploadComplete(json.url);
       } catch (error) {
         console.error('Image upload failed:', error);
-        showToast(
-          'Error',
-          {
-            description:
-              error instanceof Error ? error.message : 'Unknown error',
-          },
-          'error',
-        );
+        showToast('error', 'Error', {
+          description: error instanceof Error ? error.message : 'Unknown error',
+        });
       }
     },
     [],

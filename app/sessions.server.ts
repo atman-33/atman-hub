@@ -17,6 +17,10 @@ type SessionFlashData = {
   toast: {
     type: ToastType;
     message: string;
+    data?: {
+      duration?: number;
+      description?: string;
+    };
   };
 };
 

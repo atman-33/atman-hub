@@ -22,21 +22,17 @@ const DemoToastPage = () => {
       <Button
         variant="outline"
         onClick={() =>
-          showToast(
-            'Information',
-            {
-              description: 'This is an informational message',
-              action: {
-                label: 'Got it',
-                onClick: () => console.log('Got it'),
-              },
-              cancel: {
-                label: 'Cancel',
-                onClick: () => console.log('Cancel'),
-              },
+          showToast('info', 'Information', {
+            description: 'This is an informational message',
+            action: {
+              label: 'Got it',
+              onClick: () => console.log('Got it'),
             },
-            'info',
-          )
+            cancel: {
+              label: 'Cancel',
+              onClick: () => console.log('Cancel'),
+            },
+          })
         }
       >
         Info
@@ -44,17 +40,13 @@ const DemoToastPage = () => {
       <Button
         variant="outline"
         onClick={() =>
-          showToast(
-            'Event created successfully',
-            {
-              description: 'Your event has been created',
-              action: {
-                label: 'View',
-                onClick: () => console.log('View'),
-              },
+          showToast('success', 'Event created successfully', {
+            description: 'Your event has been created',
+            action: {
+              label: 'View',
+              onClick: () => console.log('View'),
             },
-            'success',
-          )
+          })
         }
       >
         Success
@@ -62,17 +54,13 @@ const DemoToastPage = () => {
       <Button
         variant="outline"
         onClick={() =>
-          showToast(
-            'Warning',
-            {
-              description: 'This action is irreversible',
-              action: {
-                label: 'Proceed',
-                onClick: () => console.log('Proceed'),
-              },
+          showToast('warning', 'Warning', {
+            description: 'This action is irreversible',
+            action: {
+              label: 'Proceed',
+              onClick: () => console.log('Proceed'),
             },
-            'warning',
-          )
+          })
         }
       >
         Warning
@@ -80,17 +68,13 @@ const DemoToastPage = () => {
       <Button
         variant="outline"
         onClick={() =>
-          showToast(
-            'An error occurred',
-            {
-              description: 'Unable to create event',
-              action: {
-                label: 'Retry',
-                onClick: () => console.log('Retry'),
-              },
+          showToast('error', 'An error occurred', {
+            description: 'Unable to create event',
+            action: {
+              label: 'Retry',
+              onClick: () => console.log('Retry'),
             },
-            'error',
-          )
+          })
         }
       >
         Error
