@@ -37,9 +37,9 @@ const CustomToaster = ({ ...props }: CustomToasterProps) => {
 type ToastType = 'info' | 'success' | 'warning' | 'error';
 
 const showToast = (
+  type: ToastType,
   message: React.ReactNode | (() => React.ReactNode),
   data?: ExternalToast,
-  type: ToastType = 'info',
 ) => {
   switch (type) {
     case 'info':

@@ -85,7 +85,9 @@ export default function App({ loaderData }: Route.ComponentProps) {
 
   useEffect(() => {
     if (toast) {
-      showToast(toast.type, { description: toast.message }, toast.type);
+      showToast(toast.type, toast.message, {
+        ...toast.data,
+      });
     }
   }, [toast]);
 
