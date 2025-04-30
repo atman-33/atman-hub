@@ -123,7 +123,7 @@ export const EditPostPage = ({
     async (file: File, onUploadComplete: (url: string) => void) => {
       try {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.set('file', file);
         const res = await fetch('/resource/upload-image', {
           method: 'POST',
           body: formData,
