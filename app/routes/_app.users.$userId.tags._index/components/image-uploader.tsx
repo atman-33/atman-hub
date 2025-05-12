@@ -71,7 +71,7 @@ export const ImageUploader = () => {
           <div
             className={`flex h-40 w-60 flex-col items-center gap-2 rounded-md border-2 border-dashed transition-color duration-700 ${isDragActive && 'border-blue-500 bg-blue-50'}`}
           >
-            <p className="pt-4">Drag & drop your file here</p>
+            <p className="pt-4">Drag & drop image file here</p>
           </div>
           <input
             className="absolute top-0 left-0 z-10 h-[100%] w-[100%] cursor-pointer opacity-0 file:cursor-pointer"
