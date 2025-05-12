@@ -9,10 +9,14 @@ const client = new UploadClient({ publicKey: UPLOADCARE_PUBLIC_KEY });
  * Uploads an image file to Uploadcare.
  *
  * @param {File} file The image file to upload.
+ * @param {string} [fileName] Optional file name to use for the uploaded image.
  * @returns {Promise<string>} The CDN URL of the uploaded image.
  * @throws {Error} If the upload fails.
  */
-export const uploadImage = async (file: File): Promise<string> => {
+export const uploadImage = async (
+  file: File,
+  fileName?: string,
+): Promise<string> => {
   try {
     // Validate file type
     if (!file.type.startsWith('image/')) {
@@ -31,7 +35,7 @@ export const uploadImage = async (file: File): Promise<string> => {
     const buffer = Buffer.from(arrayBuffer);
     const result = await client.uploadFile(buffer, {
       store: 'auto', // Automatically store the uploaded file
-      fileName: uuidv4(),
+      fileName: fileName || uuidv4(), // Use provided fileName or generate a UUID
     });
     return result.cdnUrl; // CDN URL of the uploaded image
   } catch (error) {
