@@ -5,7 +5,7 @@ import { Button } from '~/components/shadcn/ui/button';
 import { Label } from '~/components/shadcn/ui/label';
 import { Separator } from '~/components/shadcn/ui/separator';
 import { ConformInput } from '~/components/shared/conform/conform-input';
-import ImageUploader from './components/image-uploader';
+import { ImageUploader } from './components/image-uploader';
 import { useEditTagForm } from './hooks/use-edit-tag-form';
 import { useImageStore } from './stores/image-store';
 
@@ -52,30 +52,33 @@ const UserTagsPage = () => {
         <h2 className="font-bold text-2xl">🏷Tags</h2>
       </div>
       <Separator />
-      <div className="flex flex-1 items-baseline gap-2">
-        <Label htmlFor="name">Tag name:</Label>
-        <div className="flex-1">
-          <ConformInput
-            metadata={name}
-            aria-label="Name"
-            id="name"
-            name="name"
-            type="text"
-          />
+      <div className="flex w-full flex-col items-start gap-4">
+        <div className="flex w-full flex-1 items-baseline gap-2">
+          <Label htmlFor="name">Tag name:</Label>
+          <div className="flex-1">
+            <ConformInput
+              metadata={name}
+              aria-label="Name"
+              id="name"
+              name="name"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="flex w-full items-center justify-center gap-4">
+          <ImageUploader />
+          <Button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              handleSaveButtonClick();
+            }}
+            className=""
+          >
+            Save tag
+          </Button>
         </div>
       </div>
-      <div className="flex self-center">
-        <ImageUploader />
-      </div>
-      <Button
-        type="submit"
-        onClick={(e) => {
-          e.preventDefault();
-          handleSaveButtonClick();
-        }}
-      >
-        Save tag
-      </Button>
     </fethcer.Form>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useImageStore } from '../stores/image-store';
 import ImageLogo from './image.svg';
 
-const ImageUploader = () => {
+export const ImageUploader = () => {
   const [isDragActive, setIsDragActive] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const setImage = useImageStore((state) => state.setFile);
@@ -65,17 +65,16 @@ const ImageUploader = () => {
   };
 
   return (
-    <div className="flex w-full items-stretch gap-4">
+    <div className="flex items-stretch gap-4">
       <div className="flex flex-col items-center gap-4">
         <div className="relative flex flex-col items-center">
           <div
-            className={`flex h-40 w-60 flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed transition-color duration-700 ${isDragActive && 'border-blue-500 bg-blue-50'}`}
+            className={`flex h-40 w-60 flex-col items-center gap-2 rounded-md border-2 border-dashed transition-color duration-700 ${isDragActive && 'border-blue-500 bg-blue-50'}`}
           >
-            <p>Drag & drop your file here</p>
-            <p className="text-foreground/50 text-sm">.png, .jpeg, .jpg</p>
+            <p className="pt-4">Drag & drop your file here</p>
           </div>
           <input
-            className="absolute top-0 left-0 h-[100%] w-[100%] cursor-pointer opacity-0 file:cursor-pointer"
+            className="absolute top-0 left-0 z-10 h-[100%] w-[100%] cursor-pointer opacity-0 file:cursor-pointer"
             name="imageURL"
             type="file"
             accept=".png, .jpeg, .jpg"
@@ -85,17 +84,13 @@ const ImageUploader = () => {
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => handleDrop(e)}
           />
+          <img
+            src={selectedImage ? selectedImage : ImageLogo}
+            alt="imagelogo"
+            className="absolute top-16 z-0 h-20"
+          />
         </div>
-      </div>
-      <div className="flex grow items-center">
-        {selectedImage ? (
-          <img src={selectedImage} alt="preview" className="max-w-xs" />
-        ) : (
-          <img src={ImageLogo} alt="imagelogo" />
-        )}
       </div>
     </div>
   );
 };
-
-export default ImageUploader;
