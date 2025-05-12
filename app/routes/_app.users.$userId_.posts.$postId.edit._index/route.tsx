@@ -129,7 +129,7 @@ export const EditPostPage = ({
           body: formData,
         });
         const json = await res.json();
-        console.log('Upload result:', json);
+        // console.log('Upload result:', json);
 
         if (json.status !== 'success') {
           showToast('error', 'Error', {
