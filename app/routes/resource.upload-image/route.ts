@@ -1,4 +1,4 @@
-import { uploadImage } from '~/.server/lib/uploadcare';
+import { uploadFile } from '~/.server/lib/uploadcare';
 import type { Route } from './+types/route';
 
 /**
@@ -24,7 +24,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
   }
 
   try {
-    const url = await uploadImage(file, name);
+    const url = await uploadFile(file, name);
     // console.log('Uploaded image URL:', url);
     return Response.json({
       status: 'success',

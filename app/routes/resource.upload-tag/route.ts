@@ -1,5 +1,6 @@
 import { prisma } from '~/.server/lib/prisma-client';
-import { uploadImage } from '~/.server/lib/uploadcare';
+import { deleteFile, uploadFile } from '~/.server/lib/uploadcare';
+import { extractUuidFromCdnUrl } from '~/utils/extract-uuid';
 import type { Route } from './+types/route';
 
 /**
@@ -25,11 +26,20 @@ export const action = async ({ request }: Route.ActionArgs) => {
   }
 
   try {
-    // TODO: 同名のタグが存在する場合は、先にファイルを削除する処理を追加
+    // 既存のタグがある場合は、Uploadcareからファイルを削除する
+    const existingTag = await prisma.tag.findUnique({
+      where: { name },
+    });
+    if (existingTag?.image) {
+      const uuid = extractUuidFromCdnUrl(existingTag.image);
+      if (uuid) {
+        await deleteFile(uuid);
+      }
+    }
 
     // タグの画像をアップロードする
     // TODO: 画像アップロードが失敗した際は、DB保存をしない。
-    const url = await uploadImage(file, name);
+    const url = await uploadFile(file, name);
     // console.log('Uploaded image URL:', url);
 
     // タグの画像と名称をDBに保存する
