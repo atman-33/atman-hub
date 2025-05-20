@@ -67,7 +67,7 @@ const ContactEditPage = ({ loaderData, actionData }: Route.ComponentProps) => {
   useEffect(() => {
     // NOTE: fetcher.Formを利用しているため、actionDataがfetcher.dataが格納される
     if (fetcher.data && !fetcher.data.success) {
-      showToast('Error', { description: fetcher.data.message }, 'error');
+      showToast('error', fetcher.data.message);
     }
   }, [fetcher.data]);
 
