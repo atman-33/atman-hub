@@ -1,6 +1,6 @@
 import { getFormProps } from '@conform-to/react';
 import { useEffect, useRef, useState } from 'react';
-import { useFetcher } from 'react-router';
+import { Form, Outlet, useFetcher } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { Button } from '~/components/shadcn/ui/button';
 import { Label } from '~/components/shadcn/ui/label';
@@ -17,7 +17,7 @@ export const loader = async () => {
   return { tags };
 };
 
-const UserTagsPage = ({ loaderData }: Route.ComponentProps) => {
+const UserTagsLayout = ({ loaderData }: Route.ComponentProps) => {
   const { tags } = loaderData;
 
   const [form, { name }] = useEditTagForm();
@@ -68,8 +68,13 @@ const UserTagsPage = ({ loaderData }: Route.ComponentProps) => {
 
   return (
     <div className="flex w-full flex-col gap-4 md:px-12">
-      <div className="flex">
+      <div className="flex justify-between">
         <h2 className="font-bold text-2xl">🏷Tags</h2>
+        <Form action="new" method="post">
+          <Button type="submit" name="_action" value="new" className="ml-4">
+            New tag
+          </Button>
+        </Form>
       </div>
       <Separator />
       <fetcher.Form
@@ -106,8 +111,9 @@ const UserTagsPage = ({ loaderData }: Route.ComponentProps) => {
       <div className="mt-4 flex w-full flex-col items-center justify-center gap-4">
         <TagList tags={localTags} />
       </div>
+      <Outlet />
     </div>
   );
 };
 
-export default UserTagsPage;
+export default UserTagsLayout;
