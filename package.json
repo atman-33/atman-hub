@@ -39,6 +39,7 @@
     "@conform-to/react": "^1.2.2",
     "@conform-to/zod": "^1.2.2",
     "@lezer/highlight": "^1.2.1",
+    "@mjackson/form-data-parser": "^0.7.0",
     "@pothos/core": "^4.5.0",
     "@pothos/plugin-prisma": "^4.4.0",
     "@pothos/plugin-relay": "^4.4.0",
