@@ -1,6 +1,6 @@
 import { getFormProps } from '@conform-to/react';
 import { parseFormData } from '@mjackson/form-data-parser';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { redirect, useFetcher, useNavigate } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { deleteFile, uploadFile } from '~/.server/lib/uploadcare';
@@ -35,22 +35,23 @@ export const loader = async ({ params }: Route.LoaderArgs) => {
 };
 
 export const action = async ({ request, params }: Route.ActionArgs) => {
-  const formData = await parseFormData(request);
-  const name = formData.get('name') as string;
-  const file = formData.get('file');
-  // console.log('Received file:', file);
-
-  if (!(file instanceof File || file === null)) {
-    console.error('The received file is not a valid File object.');
-    return {
-      success: false,
-      error: {
-        message: 'The received file is not a valid File object',
-      },
-    } as ApiResponse;
-  }
-
   try {
+    // NOTE: Fileのアップロードは、parseFormDataを使って、FormDataをパースする必要あり
+    const formData = await parseFormData(request);
+    const name = formData.get('name') as string;
+    const file = formData.get('file');
+    // console.log('Received file:', file);
+
+    if (!(file instanceof File || file === null)) {
+      console.error('The received file is not a valid File object.');
+      return {
+        success: false,
+        error: {
+          message: 'The received file is not a valid File object',
+        },
+      } as ApiResponse;
+    }
+
     // 既存のタグがある場合は、Uploadcareからファイルを削除する
     const existingTag = await prisma.tag.findUnique({
       where: { id: params.tagId },
@@ -92,7 +93,7 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
       headers: { 'Set-Cookie': await commitSession(session) },
     });
   } catch (error) {
-    console.error('Error uploading image:', error);
+    console.error('❌Error uploading image:', error);
     return {
       success: false,
       error: {
@@ -110,8 +111,24 @@ const TagEditPage = ({ loaderData, actionData }: Route.ComponentProps) => {
   const file = useImageStore((state) => state.file);
   const resetFile = useImageStore((state) => state.resetFile);
 
+  // エラー表示用
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    fetcher.data?.error?.message || actionData?.error?.message,
+  );
+
   // NOTE: useNavigateはブラウザ履歴で戻る操作をするために利用
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // fetcher.data?.error?.messageは、fetcherがエラーを返した場合に表示する
+    if (fetcher.data?.error?.message) {
+      setErrorMessage(fetcher.data.error.message);
+    }
+    // actionDataは、actionがエラーを返した場合に表示する
+    if (actionData?.error?.message) {
+      setErrorMessage(actionData.error.message);
+    }
+  }, [fetcher.data?.error?.message, actionData?.error?.message]);
 
   const handleSaveButtonClick = async () => {
     if (!formRef.current) {
@@ -119,12 +136,10 @@ const TagEditPage = ({ loaderData, actionData }: Route.ComponentProps) => {
     }
     form.validate();
     const formData = new FormData(formRef.current);
-
     // 名前が空の場合は処理を中断
     if (!formData.get('name')) {
       return;
     }
-
     // 画像が選択されている場合は、FormDataに追加
     if (file) {
       formData.set('file', file);
@@ -165,6 +180,12 @@ const TagEditPage = ({ loaderData, actionData }: Route.ComponentProps) => {
           />
           <Label>Image</Label>
           <ImageUploader />
+          {/* エラーがあれば表示する */}
+          {errorMessage && (
+            <div className="col-span-2 text-red-500 text-sm">
+              {errorMessage}
+            </div>
+          )}
           <div className="col-start-2 flex gap-4">
             {/* fetcherが処理中（submitting/loading）の時はdisableにする */}
             <Button
