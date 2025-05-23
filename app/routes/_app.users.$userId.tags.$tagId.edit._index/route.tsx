@@ -120,15 +120,21 @@ const TagEditPage = ({ loaderData, actionData }: Route.ComponentProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // fetcher.data?.error?.messageは、fetcherがエラーを返した場合に表示する
+    // submit直後はエラーをクリア
+    if (fetcher.state === 'submitting') {
+      setErrorMessage(undefined);
+      return;
+    }
+    // エラーが返ってきたらセット
     if (fetcher.data?.error?.message) {
       setErrorMessage(fetcher.data.error.message);
+      return;
     }
-    // actionDataは、actionがエラーを返した場合に表示する
     if (actionData?.error?.message) {
       setErrorMessage(actionData.error.message);
+      return;
     }
-  }, [fetcher.data?.error?.message, actionData?.error?.message]);
+  }, [fetcher.state, fetcher.data?.error?.message, actionData?.error?.message]);
 
   const handleSaveButtonClick = async () => {
     if (!formRef.current) {
