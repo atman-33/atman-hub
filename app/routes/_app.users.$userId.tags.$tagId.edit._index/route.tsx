@@ -52,6 +52,23 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
       } as ApiResponse;
     }
 
+    // 既存のタグ名称が存在する場合は、エラーを返す
+    const duplicateTag = await prisma.tag.findFirst({
+      where: {
+        name,
+        // 自分自身のIDは除外（編集時の重複チェック）
+        NOT: { id: params.tagId },
+      },
+    });
+    if (duplicateTag) {
+      return {
+        success: false,
+        error: {
+          message: `A tag with the same name already exists: "${duplicateTag.name}". Please choose a different name.`,
+        },
+      } as ApiResponse;
+    }
+
     // 既存のタグがある場合は、Uploadcareからファイルを削除する
     const existingTag = await prisma.tag.findUnique({
       where: { id: params.tagId },
