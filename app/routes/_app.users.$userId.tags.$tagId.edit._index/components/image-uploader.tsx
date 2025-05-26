@@ -37,22 +37,11 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
     setSelectedImage: (src: string) => void,
   ) => {
     try {
-      if (file.type === 'image/svg+xml' || file.name.endsWith('.svg')) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const svgText = reader.result as string;
-          setSelectedImage(
-            `data:image/svg+xml;utf8,${encodeURIComponent(svgText)}`,
-          );
-        };
-        reader.readAsText(file);
-      } else {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setSelectedImage(reader.result as string);
-        };
-        reader.readAsDataURL(file);
-      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     } catch (error) {
       alert('Failed to load image!');
       console.error(error);
@@ -64,7 +53,7 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
     setIsDragActive(false);
     if (e.dataTransfer.files !== null && e.dataTransfer.files.length > 0) {
       if (e.dataTransfer.files.length === 1) {
-        await setFileToUpload(e.dataTransfer.files[0]);
+        setImage(e.dataTransfer.files[0]);
       } else {
         alert('Only one file is allowed!');
       }
@@ -82,11 +71,6 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
     }
     const file = e.target.files[0];
     readFileForPreview(file, setSelectedImage);
-    await setFileToUpload(file);
-  };
-
-  const setFileToUpload = async (file: File) => {
-    // console.log('set image => ', file);
     setImage(file);
   };
 
