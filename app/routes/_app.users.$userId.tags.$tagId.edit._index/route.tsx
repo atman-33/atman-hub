@@ -202,7 +202,7 @@ const TagEditPage = ({ loaderData, actionData }: Route.ComponentProps) => {
             type="text"
           />
           <Label>Image</Label>
-          <ImageUploader />
+          <ImageUploader image={tag.image} />
           {/* エラーがあれば表示する */}
           {errorMessage && (
             <div className="col-span-2 text-red-500 text-sm">

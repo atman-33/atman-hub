@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useImageStore } from '../stores/image-store';
 import ImageLogo from './image.svg';
 
-export const ImageUploader = () => {
+export const ImageUploader = ({ image }: { image?: string | null }) => {
   const [isDragActive, setIsDragActive] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    image || null,
+  );
   const setImage = useImageStore((state) => state.setFile);
 
   const handleDragEnter = (e: React.DragEvent<HTMLInputElement>) => {
