@@ -9,8 +9,6 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
   );
   const setImage = useImageStore((state) => state.setFile);
 
-  // TODO: image が svg の場合は初期表示されない！要対応
-
   useEffect(() => {}, []);
 
   const handleDragEnter = (e: React.DragEvent<HTMLInputElement>) => {
