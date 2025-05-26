@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useImageStore } from '../stores/image-store';
 import ImageLogo from './image.svg';
 
@@ -8,6 +8,10 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
     image || null,
   );
   const setImage = useImageStore((state) => state.setFile);
+
+  // TODO: image が svg の場合は初期表示されない！要対応
+
+  useEffect(() => {}, []);
 
   const handleDragEnter = (e: React.DragEvent<HTMLInputElement>) => {
     if (e.dataTransfer === null) {
@@ -23,13 +27,43 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
     setIsDragActive(false);
   };
 
+  /**
+   * ファイルをプレビュー用に読み込む共通関数
+   * @param file
+   * @param setSelectedImage
+   */
+  const readFileForPreview = (
+    file: File,
+    setSelectedImage: (src: string) => void,
+  ) => {
+    try {
+      if (file.type === 'image/svg+xml' || file.name.endsWith('.svg')) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const svgText = reader.result as string;
+          setSelectedImage(
+            `data:image/svg+xml;utf8,${encodeURIComponent(svgText)}`,
+          );
+        };
+        reader.readAsText(file);
+      } else {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setSelectedImage(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    } catch (error) {
+      alert('Failed to load image!');
+      console.error(error);
+    }
+  };
+
   const handleDrop = async (e: React.DragEvent<HTMLInputElement>) => {
     e.preventDefault();
     setIsDragActive(false);
-    // console.log(e.dataTransfer.files[0].name);
     if (e.dataTransfer.files !== null && e.dataTransfer.files.length > 0) {
       if (e.dataTransfer.files.length === 1) {
-        // console.log(e.dataTransfer.files[0]);
         await setFileToUpload(e.dataTransfer.files[0]);
       } else {
         alert('Only one file is allowed!');
@@ -38,11 +72,7 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
     }
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      readFileForPreview(file, setSelectedImage);
     }
   };
 
@@ -50,14 +80,8 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
     if (e.target.files === null) {
       return;
     }
-
-    // console.log(e.target.files[0].name);
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedImage(reader.result as string);
-    };
-    reader.readAsDataURL(file);
+    readFileForPreview(file, setSelectedImage);
     await setFileToUpload(file);
   };
 
@@ -79,7 +103,7 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
             className="absolute top-0 left-0 z-10 h-[100%] w-[100%] cursor-pointer opacity-0 file:cursor-pointer"
             name="imageURL"
             type="file"
-            accept=".png, .jpeg, .jpg"
+            accept=".png, .jpeg, .jpg, .svg"
             onChange={(e) => handleFileUpload(e)}
             onDragEnter={(e) => handleDragEnter(e)}
             onDragLeave={() => handleDragLeave()}
