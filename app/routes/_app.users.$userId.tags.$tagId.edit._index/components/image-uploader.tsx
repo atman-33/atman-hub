@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { showToast } from '~/components/shadcn/custom/custom-sonner';
 import { useImageStore } from '../stores/image-store';
 import ImageLogo from './image.svg';
 
-export const ImageUploader = ({ image }: { image?: string | null }) => {
+interface ImageUploaderProps {
+  image?: string | null;
+}
+
+export const ImageUploader = ({ image }: ImageUploaderProps) => {
   const [isDragActive, setIsDragActive] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(
     image || null,
   );
   const setImage = useImageStore((state) => state.setFile);
-
-  useEffect(() => {}, []);
 
   const handleDragEnter = (e: React.DragEvent<HTMLInputElement>) => {
     if (e.dataTransfer === null) {
@@ -41,7 +44,7 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
       };
       reader.readAsDataURL(file);
     } catch (error) {
-      alert('Failed to load image!');
+      showToast('error', 'Failed to load image!');
       console.error(error);
     }
   };
@@ -53,7 +56,7 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
       if (e.dataTransfer.files.length === 1) {
         setImage(e.dataTransfer.files[0]);
       } else {
-        alert('Only one file is allowed!');
+        showToast('error', 'Only one file is allowed!');
       }
       e.dataTransfer.clearData();
     }
