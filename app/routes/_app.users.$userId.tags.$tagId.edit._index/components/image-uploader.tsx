@@ -81,7 +81,7 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
           <div
             className={`flex h-40 w-60 flex-col items-center gap-2 rounded-md border-2 border-dashed transition-color duration-700 ${isDragActive && 'border-blue-500 bg-blue-50'}`}
           >
-            <p className="pt-4">Drag & drop image file here</p>
+            <p className="pt-4 text-primary/60">Drag & drop image file here</p>
           </div>
           <input
             className="absolute top-0 left-0 z-10 h-[100%] w-[100%] cursor-pointer opacity-0 file:cursor-pointer"
@@ -95,7 +95,11 @@ export const ImageUploader = ({ image }: { image?: string | null }) => {
             onDrop={(e) => handleDrop(e)}
           />
           <img
-            src={selectedImage ? selectedImage : ImageLogo}
+            src={
+              selectedImage
+                ? `${selectedImage}/-/scale_crop/300x300/-/rasterize/`
+                : ImageLogo
+            }
             alt="imagelogo"
             className="absolute top-16 z-0 h-20"
           />
