@@ -15,7 +15,7 @@ export const Tag = ({ name, imageUrl, size, className }: TagProps) => {
 
   return (
     <div
-      className={`flex items-center space-x-1 rounded-4xl border-1 px-2 py-0.5 font-normal text-sm ${className}`}
+      className={`flex min-h-8 items-center space-x-1 rounded-4xl border-1 px-2 py-0.5 font-normal text-sm ${className}`}
     >
       {imageUrl && (
         <img
