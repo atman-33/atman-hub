@@ -3,6 +3,7 @@
     "biomejs.biome",
     "vitest.explorer",
     "nuxt.mdc",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "prisma.prisma"
   ]
 }

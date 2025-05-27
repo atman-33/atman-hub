@@ -123,13 +123,13 @@ export const EditPostPage = ({
     async (file: File, onUploadComplete: (url: string) => void) => {
       try {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.set('file', file);
         const res = await fetch('/resource/upload-image', {
           method: 'POST',
           body: formData,
         });
         const json = await res.json();
-        console.log('Upload result:', json);
+        // console.log('Upload result:', json);
 
         if (json.status !== 'success') {
           showToast('error', 'Error', {
