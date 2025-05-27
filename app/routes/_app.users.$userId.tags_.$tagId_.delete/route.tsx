@@ -2,6 +2,7 @@ import { redirect } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { deleteFile } from '~/.server/lib/uploadcare';
 import { commitSession, getSession } from '~/sessions.server';
+import type { ApiResponse } from '~/types/api-response';
 import { extractUuidFromCdnUrl } from '~/utils/extract-uuid';
 import type { Route } from './+types/route';
 
@@ -40,6 +41,12 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 
     default: {
       console.log('_app.users.$userId.tags.$tagId_.delete: _action not found');
+      return {
+        success: false,
+        error: {
+          message: '_app.users.$userId.tags.$tagId_.delete: _action not found',
+        },
+      } as ApiResponse;
     }
   }
 };
