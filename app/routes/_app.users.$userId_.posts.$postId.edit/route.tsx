@@ -165,7 +165,6 @@ export const EditPostPage = ({
         className="flex flex-col"
       >
         <div className="flex justify-between py-4">
-          {/* TODO: Buttonとnavigate(-1)を利用する方法に変更する */}
           <Link to={`/users/${userId}/posts`}>
             <IoArrowBackCircle className="h-10 w-10" />
           </Link>
