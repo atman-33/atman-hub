@@ -13,9 +13,13 @@ export const useAssignedTagsStore = create<AssignedTagsStore>((set) => ({
   tags: [],
 
   setTag: (tag) =>
-    set((state) => ({
-      tags: [...state.tags, tag],
-    })),
+    set((state) => {
+      // すでに同じIDのタグが存在する場合は追加しない
+      if (state.tags.some((t) => t.id === tag.id)) {
+        return { tags: state.tags };
+      }
+      return { tags: [...state.tags, tag] };
+    }),
 
   setTags: (tags) =>
     set(() => ({
