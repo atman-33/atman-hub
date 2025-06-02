@@ -1,11 +1,15 @@
 import { useAssignedTagsStore } from '../stores/assigned-tags-store';
 import { AssignedTag } from './assigned-tag';
 
-export const AssignedTagList = () => {
+interface AssignedTagListProps {
+  className?: string;
+}
+
+export const AssignedTagList = ({ className }: AssignedTagListProps) => {
   const tags = useAssignedTagsStore((state) => state.tags);
 
   return (
-    <div>
+    <div className={className}>
       <div className="flex flex-wrap gap-4">
         {tags.map((tag) => (
           <AssignedTag key={tag.id} tag={tag} />
