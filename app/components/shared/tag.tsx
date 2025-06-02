@@ -4,6 +4,7 @@ interface TagProps {
   size?: number;
   className?: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  children?: React.ReactNode;
 }
 
 /**
@@ -11,9 +12,15 @@ interface TagProps {
  * @param
  * @returns
  */
-export const Tag = ({ name, imageUrl, size, className, onClick }: TagProps) => {
+export const Tag = ({
+  name,
+  imageUrl,
+  size,
+  className,
+  onClick,
+  children,
+}: TagProps) => {
   const sizeClass = size ? `w-${size} h-${size}` : 'w-6 h-6';
-  // onClickがある場合はカーソルをpointerにする
   const clickableClass = onClick ? 'cursor-pointer' : '';
 
   return (
@@ -42,6 +49,7 @@ export const Tag = ({ name, imageUrl, size, className, onClick }: TagProps) => {
         />
       )}
       <div>{name}</div>
+      {children && <div className="ml-1 flex items-center">{children}</div>}
     </div>
   );
 };
