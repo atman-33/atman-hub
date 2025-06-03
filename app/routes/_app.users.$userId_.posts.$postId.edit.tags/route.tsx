@@ -101,7 +101,7 @@ const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
         <div className="flex flex-col gap-4 p-4">
           <h3 className="font-semibold">Tags for this post</h3>
           <p className="text-muted-foreground text-sm">
-            Tags currently set for this post
+            Tags currently set for this post.
           </p>
           <AssignedTagList className="min-h-20" />
           <Separator />
