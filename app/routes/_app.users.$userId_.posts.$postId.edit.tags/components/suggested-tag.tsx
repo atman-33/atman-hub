@@ -7,7 +7,7 @@ interface SuggestedTagProps {
 }
 
 export const SuggestedTag = ({ tag }: SuggestedTagProps) => {
-  const setTag = useAssignedTagsStore((state) => state.setTag);
+  const setTag = useAssignedTagsStore((state) => state.setCurrentTag);
   return (
     <div>
       <TagComponent

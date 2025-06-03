@@ -2,34 +2,58 @@ import type { Tag } from '@prisma/client';
 import { create } from 'zustand';
 
 interface AssignedTagsStore {
-  tags: Tag[];
-  setTag: (tag: Tag) => void;
-  setTags: (tags: Tag[]) => void;
-  removeTag: (tagId: string) => void;
-  resetTags: () => void;
+  initialTags: Tag[];
+  currentTags: Tag[];
+
+  setInitialTags: (tags: Tag[]) => void;
+  setCurrentTag: (tag: Tag) => void;
+  setCurrentTags: (tags: Tag[]) => void;
+  removeCurrentTag: (tagId: string) => void;
+  resetCurrentTags: () => void;
+  isDirty: () => boolean;
 }
 
-export const useAssignedTagsStore = create<AssignedTagsStore>((set) => ({
-  tags: [],
+export const useAssignedTagsStore = create<AssignedTagsStore>((set, get) => ({
+  initialTags: [],
+  currentTags: [],
 
-  setTag: (tag) =>
+  setInitialTags: (tags) =>
+    set(() => ({
+      initialTags: tags,
+      currentTags: tags,
+    })),
+
+  setCurrentTag: (tag) =>
     set((state) => {
       // すでに同じIDのタグが存在する場合は追加しない
-      if (state.tags.some((t) => t.id === tag.id)) {
-        return { tags: state.tags };
+      if (state.currentTags.some((t) => t.id === tag.id)) {
+        return { currentTags: state.currentTags };
       }
-      return { tags: [...state.tags, tag] };
+      return { currentTags: [...state.currentTags, tag] };
     }),
 
-  setTags: (tags) =>
+  setCurrentTags: (tags) =>
     set(() => ({
-      tags: tags,
+      currentTags: tags,
     })),
 
-  removeTag: (tagId) =>
+  removeCurrentTag: (tagId) =>
     set((state) => ({
-      tags: state.tags.filter((tag) => tag.id !== tagId),
+      currentTags: state.currentTags.filter((tag) => tag.id !== tagId),
     })),
 
-  resetTags: () => set({ tags: [] }),
+  resetCurrentTags: () =>
+    set((state) => ({
+      currentTags: state.initialTags,
+    })),
+
+  isDirty: () => {
+    const { initialTags, currentTags } = get();
+    if (initialTags.length !== currentTags.length) {
+      return true;
+    }
+    return !initialTags.every((tag) =>
+      currentTags.some((t) => t.id === tag.id),
+    );
+  },
 }));

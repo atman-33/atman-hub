@@ -6,7 +6,7 @@ interface AssignedTagListProps {
 }
 
 export const AssignedTagList = ({ className }: AssignedTagListProps) => {
-  const tags = useAssignedTagsStore((state) => state.tags);
+  const tags = useAssignedTagsStore((state) => state.currentTags);
 
   return (
     <div className={className}>

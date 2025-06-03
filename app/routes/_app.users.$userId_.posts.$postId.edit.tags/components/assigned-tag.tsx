@@ -7,7 +7,7 @@ interface AssignedTagProps {
 }
 
 export const AssignedTag = ({ tag }: AssignedTagProps) => {
-  const removeTag = useAssignedTagsStore((state) => state.removeTag);
+  const removeTag = useAssignedTagsStore((state) => state.removeCurrentTag);
   return (
     <TagComponent name={tag.name} imageUrl={tag.image || ''}>
       <button

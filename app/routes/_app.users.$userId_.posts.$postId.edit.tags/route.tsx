@@ -67,8 +67,8 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
   const { suggestedTags, assignedTags: initialAssignedTags } = loaderData;
   const { userId, postId } = useParams();
-  const assignedTags = useAssignedTagsStore((state) => state.tags);
-  const setTags = useAssignedTagsStore((state) => state.setTags);
+  const assignedTags = useAssignedTagsStore((state) => state.currentTags);
+  const setTags = useAssignedTagsStore((state) => state.setCurrentTags);
 
   const navigate = useNavigate();
   const fetcher = useFetcher();
@@ -103,6 +103,7 @@ const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
           <p className="text-muted-foreground text-sm">
             Tags currently set for this post.
           </p>
+          {/* // TODO: タグが変更された場合は、保存ボタンを押すことを促すメッセージを追加する */}
           <AssignedTagList className="min-h-20" />
           <Separator />
           <p className="text-muted-foreground text-sm">
