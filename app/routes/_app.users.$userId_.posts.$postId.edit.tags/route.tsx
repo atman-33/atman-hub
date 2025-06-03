@@ -1,4 +1,5 @@
 import type { Tag } from '@prisma/client';
+import { useEffect } from 'react';
 import { useFetcher, useNavigate, useParams } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { Button } from '~/components/shadcn/ui/button';
@@ -16,9 +17,18 @@ import { AssignedTagList } from './components/assigned-tag-list';
 import { SuggestedTagList } from './components/suggested-tag-list';
 import { useAssignedTagsStore } from './stores/assigned-tags-store';
 
-export const loader = async () => {
-  const tags = await prisma.tag.findMany({});
-  return { tags };
+export const loader = async ({ params }: Route.LoaderArgs) => {
+  const suggestedTags = await prisma.tag.findMany({});
+  const assignedTags = await prisma.tag.findMany({
+    where: {
+      posts: {
+        some: {
+          postId: params.postId,
+        },
+      },
+    },
+  });
+  return { suggestedTags, assignedTags };
 };
 
 export const action = async ({ request, params }: Route.ActionArgs) => {
@@ -55,12 +65,17 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 };
 
 const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
-  const { tags } = loaderData;
+  const { suggestedTags, assignedTags: initialAssignedTags } = loaderData;
   const { userId, postId } = useParams();
   const assignedTags = useAssignedTagsStore((state) => state.tags);
+  const setTags = useAssignedTagsStore((state) => state.setTags);
 
   const navigate = useNavigate();
   const fetcher = useFetcher();
+
+  useEffect(() => {
+    setTags(initialAssignedTags);
+  }, [initialAssignedTags, setTags]);
 
   const handleClose = () => {
     // NOTE: ブラウザ履歴を残さない
@@ -93,7 +108,7 @@ const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
           <p className="text-muted-foreground text-sm">
             Click on a tag to add it to your post.
           </p>
-          <SuggestedTagList tags={tags} />
+          <SuggestedTagList tags={suggestedTags} />
         </div>
         <SheetFooter>
           <SheetClose asChild>
