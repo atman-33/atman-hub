@@ -18,7 +18,7 @@ const transformerAddCopyButton = (
         type: 'element',
         tagName: 'button',
         properties: {
-          className: ['copy'],
+          className: ['copy', 'cursor-pointer'], // カーソルをポインターに
           dataCode: this.source,
           type: 'button',
         },
