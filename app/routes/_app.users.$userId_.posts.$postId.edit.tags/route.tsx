@@ -1,4 +1,5 @@
-import { useNavigate, useParams } from 'react-router';
+import type { Tag } from '@prisma/client';
+import { useFetcher, useNavigate, useParams } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
 import { Button } from '~/components/shadcn/ui/button';
 import { Separator } from '~/components/shadcn/ui/separator';
@@ -13,20 +14,63 @@ import {
 import type { Route } from './+types/route';
 import { AssignedTagList } from './components/assigned-tag-list';
 import { SuggestedTagList } from './components/suggested-tag-list';
+import { useAssignedTagsStore } from './stores/assigned-tags-store';
 
 export const loader = async () => {
   const tags = await prisma.tag.findMany({});
   return { tags };
 };
 
+export const action = async ({ request, params }: Route.ActionArgs) => {
+  const formData = await request.formData();
+  // assignedTagsはJSON文字列で送られてくるのでパースする
+  const assignedTagsJson = formData.get('assignedTags');
+  const assignedTags: Tag[] | null = assignedTagsJson
+    ? JSON.parse(assignedTagsJson as string)
+    : [];
+
+  const postId = params.postId;
+  if (!postId) {
+    throw new Error('postId is not specified!');
+  }
+
+  // まず既存のタグ関連(PostTag)を全部削除
+  await prisma.postTag.deleteMany({
+    where: { postId },
+  });
+
+  // 新しいタグを紐付け
+  if (Array.isArray(assignedTags) && assignedTags.length > 0) {
+    await prisma.postTag.createMany({
+      data: assignedTags.map((tag) => ({
+        postId,
+        tagId: tag.id,
+      })),
+      skipDuplicates: true,
+    });
+  }
+
+  // TODO: エラーハンドリングを追加する
+  return null;
+};
+
 const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
   const { tags } = loaderData;
-
   const { userId, postId } = useParams();
+  const assignedTags = useAssignedTagsStore((state) => state.tags);
+
   const navigate = useNavigate();
+  const fetcher = useFetcher();
+
   const handleClose = () => {
     // NOTE: ブラウザ履歴を残さない
     navigate(`/users/${userId}/posts/${postId}/edit`, { replace: true });
+  };
+
+  const handleSaveChangesClick = () => {
+    const formData = new FormData();
+    formData.set('assignedTags', JSON.stringify(assignedTags));
+    fetcher.submit(formData, { method: 'post', action: './' });
   };
 
   return (
@@ -53,7 +97,9 @@ const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" onClick={() => handleSaveChangesClick()}>
+              Save changes
+            </Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
