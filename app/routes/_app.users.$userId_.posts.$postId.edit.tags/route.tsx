@@ -68,14 +68,15 @@ const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
   const { suggestedTags, assignedTags: initialAssignedTags } = loaderData;
   const { userId, postId } = useParams();
   const assignedTags = useAssignedTagsStore((state) => state.currentTags);
-  const setTags = useAssignedTagsStore((state) => state.setCurrentTags);
+  const setInitialTags = useAssignedTagsStore((state) => state.setInitialTags);
+  const hasTagsChanged = useAssignedTagsStore((state) => state.isDirty);
 
   const navigate = useNavigate();
   const fetcher = useFetcher();
 
   useEffect(() => {
-    setTags(initialAssignedTags);
-  }, [initialAssignedTags, setTags]);
+    setInitialTags(initialAssignedTags);
+  }, [initialAssignedTags, setInitialTags]);
 
   const handleClose = () => {
     // NOTE: ブラウザ履歴を残さない
@@ -103,8 +104,13 @@ const EditPostTagsPage = ({ loaderData }: Route.ComponentProps) => {
           <p className="text-muted-foreground text-sm">
             Tags currently set for this post.
           </p>
-          {/* // TODO: タグが変更された場合は、保存ボタンを押すことを促すメッセージを追加する */}
-          <AssignedTagList className="min-h-20" />
+          <AssignedTagList className="min-h-10" />
+          {hasTagsChanged() && (
+            <p className="font-semibold text-destructive text-sm">
+              Tags have been changed. Please press the save button to apply your
+              changes.
+            </p>
+          )}
           <Separator />
           <p className="text-muted-foreground text-sm">
             Click on a tag to add it to your post.
