@@ -92,9 +92,8 @@ export const EditPostPage = ({
 
   useEffect(() => {
     // 記事の内容（content）をMarkdownエディタに表示するためのstateを更新
-    if (post?.content) {
-      setDoc(post.content);
-    }
+    const newContent = post?.content ?? '';
+    setDoc(newContent);
   }, [post?.content, setDoc]);
 
   /**
