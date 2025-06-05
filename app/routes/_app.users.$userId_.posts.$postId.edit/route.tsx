@@ -1,6 +1,7 @@
 import { getFormProps } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
-import { useCallback, useEffect, useRef } from 'react';
+import { PostStatus } from '@prisma/client';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { IoArrowBackCircle } from 'react-icons/io5';
 import { Link, Outlet, redirect, useFetcher, useSubmit } from 'react-router';
 import { prisma } from '~/.server/lib/prisma-client';
@@ -26,7 +27,6 @@ export const loader = async ({ params }: Route.LoaderArgs) => {
   const post = await prisma.post.findUnique({
     where: { id: params.postId },
   });
-
   // TODO: 取得したポストのAuthorIdとparams.userIdが一致するか確認する処理を追加
 
   return { userId: params.userId, postId: params.postId, post };
@@ -53,6 +53,7 @@ export const action = async ({ params, request }: Route.ActionArgs) => {
       title: postData.title as string,
       emoji: postData.emoji as string,
       content: postData.content as string,
+      status: postData.status as PostStatus,
       authorId: params.userId,
     },
     create: {
@@ -60,6 +61,7 @@ export const action = async ({ params, request }: Route.ActionArgs) => {
       title: postData.title as string,
       emoji: postData.emoji as string,
       content: postData.content as string,
+      status: postData.status as PostStatus,
       authorId: params.userId,
     },
   });
@@ -82,6 +84,9 @@ export const EditPostPage = ({
 }: Route.ComponentProps) => {
   const { userId, post } = loaderData;
   const [form, { emoji, title }] = useEditPostForm();
+  const [isPublished, setIsPublished] = useState(
+    post?.status === PostStatus.PUBLIC,
+  );
   const fetcher = useFetcher<typeof actionData>();
   const formRef = useRef<HTMLFormElement>(null);
   const submit = useSubmit();
@@ -97,25 +102,60 @@ export const EditPostPage = ({
   }, [post?.content, setDoc]);
 
   /**
-   * Markdownエディタの内容を保存する
+   * 公開状態のスイッチが変更されたときの処理
    */
-  const save = useCallback(() => {
+  const handlePublishSwitchChange = () => {
     if (!formRef.current) {
       return;
     }
 
-    // Conformのvalidateを実行
+    // NOTE: Conformのvalidateを実行して画面にバリデーションエラーを表示する
     form.validate();
 
-    // FormDataを作成して、content: doc を追加
+    // NOTE: 実際にバリデーションエラーが発生しているかどうかは、parseWithZodの結果で確認する
     const formData = new FormData(formRef.current);
-    formData.set('content', doc || ''); // docの値をcontentフィールドに設定
-
-    submit(formData, {
-      method: 'post',
-      replace: true,
+    const result = parseWithZod(formData, {
+      schema: editPostFormSchema,
     });
-  }, [doc, submit, form]);
+
+    if (result.status === 'error') {
+      // バリデーションエラーがある場合は、何もせずにトースト表示のみ
+      showToast('error', 'Error', {
+        description: 'Please fix the errors before publishing.',
+      });
+      return;
+    }
+
+    // console.log('result.payload:', result.payload);
+    const nextPublished = !isPublished;
+    setIsPublished(nextPublished); // 状態は更新しつつ
+    save(nextPublished); // 新しい状態を明示的に渡す
+  };
+
+  /**
+   * 記事を保存する
+   */
+  const save = useCallback(
+    (published: boolean = isPublished) => {
+      if (!formRef.current) {
+        return;
+      }
+
+      // Conformのvalidateを実行
+      form.validate();
+
+      // FormDataを作成して、content: doc を追加
+      const formData = new FormData(formRef.current);
+      formData.set('content', doc || ''); // docの値をcontentフィールドに設定
+      formData.set('status', published ? PostStatus.PUBLIC : PostStatus.DRAFT); // statusフィールドを追加
+
+      submit(formData, {
+        method: 'post',
+        replace: true,
+      });
+    },
+    [doc, submit, form, isPublished],
+  );
 
   /**
    * 画像をアップロードする
@@ -169,7 +209,12 @@ export const EditPostPage = ({
           </Link>
           <div className="flex items-center gap-4">
             <div className="flex items-center space-x-2">
-              <Switch id="publish" />
+              <Switch
+                id="publish"
+                checked={isPublished}
+                onCheckedChange={() => handlePublishSwitchChange()}
+                className="hover:cursor-pointer"
+              />
               <Label htmlFor="publish">Publish</Label>
             </div>
             <SheetTrigger asChild>
@@ -191,7 +236,7 @@ export const EditPostPage = ({
                 save();
               }}
             >
-              Save Draft
+              Save
             </Button>
           </div>
         </div>
