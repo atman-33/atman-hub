@@ -1,4 +1,4 @@
-import type { Post } from '@prisma/client';
+import { type Post, PostStatus } from '@prisma/client';
 import { UserAvatar } from '~/components/shared/user-avatar';
 import type { UserWithoutPassword } from '~/types/user';
 import { formatDate } from '~/utils/date-util';
@@ -37,8 +37,15 @@ export const PostListItem = ({ user, post }: PostListItemProps) => {
           </div>
         </div>
       </div>
-
       <div>
+        {post.status === PostStatus.PUBLIC && (
+          <span className="rounded bg-green-500 px-2 py-1 font-bold text-white text-xs dark:bg-green-800">
+            Published
+          </span>
+        )}
+      </div>
+
+      <div className="flex items-center">
         <PostListItemThreeDots post={post} />
       </div>
     </div>

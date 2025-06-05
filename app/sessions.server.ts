@@ -29,7 +29,7 @@ const { getSession, commitSession, destroySession } =
     cookie: {
       name: '__session',
       httpOnly: true,
-      maxAge: 60 * 60 * 24 * 30,
+      maxAge: 60 * 60 * 24 * 1, // 単位: 秒
       path: '/',
       sameSite: 'lax',
       secrets: [env.SESSION_SECRET || ''],
