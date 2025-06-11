@@ -1,0 +1,13 @@
+.toc-link::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 10px;
+  height: 6px;
+  width: 6px;
+  border-radius: 9999px;
+  border-width: 2px;
+  background-color: var(--card);
+  border-color: var(--card);
+  box-shadow: 0 0 0 2px rgb(var(--lightgray));
+}

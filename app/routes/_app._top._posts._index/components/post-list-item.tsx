@@ -1,4 +1,5 @@
 import type { Post } from '@prisma/client';
+import { Link } from 'react-router';
 import { UserAvatar } from '~/components/shared/user-avatar';
 import { formatDate } from '~/utils/date-util';
 
@@ -10,7 +11,10 @@ interface PostListItemProps {
 export const PostListItem = ({ user, post }: PostListItemProps) => {
   return (
     <div className="flex items-center justify-between space-x-4" key={post.id}>
-      <div className="flex w-full items-center gap-x-4">
+      <Link
+        to={`/posts/${post.id}`}
+        className="flex w-full items-center gap-x-4"
+      >
         <div className="whitespace-nowrap">
           <div className="flex h-20 min-h-20 w-20 min-w-20 items-center justify-center rounded-full bg-background text-5xl">
             <div>{post?.emoji}</div>
@@ -34,7 +38,7 @@ export const PostListItem = ({ user, post }: PostListItemProps) => {
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
