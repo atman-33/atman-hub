@@ -3,7 +3,7 @@ import { formatDate } from '~/utils/date-util';
 
 const PostHeader = ({ post }: { post: Post }) => {
   return (
-    <header className="my-8 flex flex-col items-center space-y-4">
+    <header className="my-4 flex flex-col items-center space-y-4">
       <div className="text-5xl">{post.emoji}</div>
       <h1 className="mb-2 text-center font-bold text-2xl md:text-4xl ">
         {post.title}

@@ -4,11 +4,25 @@ import { PostPreview } from '~/components/shared/post-preview/post-preview';
 import { Toc } from '~/components/shared/toc';
 import type { Route } from './+types/route';
 import { PostHeader } from './components/post-header';
+import { PostTags } from './components/post-tags';
 import { useDocStore } from './stores/doc-store';
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const post = await prisma.post.findUnique({
     where: { id: params.postId },
+    include: {
+      tags: {
+        include: {
+          tag: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   return { post };
@@ -40,7 +54,7 @@ const PostPage = ({ loaderData }: Route.ComponentProps) => {
       <div className="prose dark:prose-invert py-6 sm:p-2">
         <div className="sm:container">
           <PostHeader post={post} />
-
+          <PostTags tags={post.tags.map((t) => t.tag)} />
           <article className="lg:grid lg:grid-cols-10 ">
             <section className="flex flex-col space-y-4 bg-background p-4 sm:rounded-sm sm:p-8 lg:col-span-8">
               {/* <PostTags post={post} /> */}
