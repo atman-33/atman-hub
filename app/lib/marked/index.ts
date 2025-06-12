@@ -3,7 +3,7 @@ import {
   transformerNotationFocus,
   transformerNotationHighlight,
 } from '@shikijs/transformers';
-import { Marked } from 'marked';
+import { Marked, type Tokens } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import { highlighter } from '~/lib/highlighter';
 import { transformerAddCopyButton } from '~/lib/shiki-transformers/transformer-add-copy-button';
@@ -28,11 +28,18 @@ import { transformerAddCopyButton } from '~/lib/shiki-transformers/transformer-a
  * @returns {Marked} A configured instance of the `Marked` class.
  */
 const getMarked = () => {
-  return new Marked(
-    {
-      gfm: true,
-      breaks: true,
+  const marked = new Marked({
+    gfm: true,
+    breaks: true,
+    renderer: {
+      heading(this, token: Tokens.Heading) {
+        const slug = slugify(token.raw || token.text);
+        return `<h${token.depth} id="${slug}">${token.text}</h${token.depth}>`;
+      },
     },
+  });
+
+  marked.use(
     markedHighlight({
       highlight(code, lang) {
         const language = highlighter.getLoadedLanguages().includes(lang)
@@ -51,6 +58,15 @@ const getMarked = () => {
       },
     }),
   );
+
+  return marked;
 };
 
 export { getMarked };
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '') // 記号を除去
+    .replace(/\s+/g, '-'); // 空白をハイフンに
