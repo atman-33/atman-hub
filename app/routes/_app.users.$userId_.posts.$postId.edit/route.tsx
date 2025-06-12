@@ -94,6 +94,7 @@ export const EditPostPage = ({
   // 記事の内容（content）をMarkdownエディタに表示するためのstate
   const doc = useDocStore((state) => state.doc);
   const setDoc = useDocStore((state) => state.setDoc);
+  const html = useDocStore((state) => state.docHtml);
 
   useEffect(() => {
     // 記事の内容（content）をMarkdownエディタに表示するためのstateを更新
@@ -279,7 +280,7 @@ export const EditPostPage = ({
             />
           </div>
           {/* 記事プレビュー */}
-          <PostPreview className="flex-1" />
+          <PostPreview html={html} className="flex-1" />
         </div>
       </fetcher.Form>
       <Outlet />

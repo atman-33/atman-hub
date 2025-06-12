@@ -1,4 +1,6 @@
 .preview {
+  font-size: 0.9rem;
+
   h1,
   h2 {
     margin-top: 1rem;
@@ -79,7 +81,6 @@
     background-repeat: no-repeat;
     padding: 0 0.25rem;
     text-align: center;
-    font-size: 1.2rem;
     font-weight: bold;
   }
 

@@ -17,6 +17,7 @@ export const loader = async ({ params }: Route.LoaderArgs) => {
 const PostPage = ({ loaderData }: Route.ComponentProps) => {
   const { post } = loaderData;
   const setDoc = useDocStore((state) => state.setDoc);
+  const html = useDocStore((state) => state.docHtml);
 
   useEffect(() => {
     setDoc(post?.content || '');
@@ -44,7 +45,7 @@ const PostPage = ({ loaderData }: Route.ComponentProps) => {
             <section className="flex flex-col space-y-4 bg-background p-4 sm:rounded-sm sm:p-8 lg:col-span-8">
               {/* <PostTags post={post} /> */}
               <div className="content">
-                <PostPreview />
+                <PostPreview html={html} />
               </div>
             </section>
             <div className="hidden items-start lg:col-span-2 lg:flex">
