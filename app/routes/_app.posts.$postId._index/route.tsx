@@ -41,14 +41,14 @@ const PostPage = ({ loaderData }: Route.ComponentProps) => {
           <PostHeader post={post} />
 
           <article className="lg:grid lg:grid-cols-10 ">
-            <section className="flex flex-col space-y-4 bg-background p-4 sm:rounded-sm sm:p-8 lg:col-span-7">
+            <section className="flex flex-col space-y-4 bg-background p-4 sm:rounded-sm sm:p-8 lg:col-span-8">
               {/* <PostTags post={post} /> */}
               <div className="content">
                 <Preview />
               </div>
             </section>
-            <div className="hidden items-start lg:col-span-3 lg:flex">
-              <Toc className="sticky top-20 ml-6 min-w-72" />
+            <div className="hidden items-start lg:col-span-2 lg:flex">
+              <Toc className="sticky top-10 ml-6" />
             </div>
           </article>
         </div>
