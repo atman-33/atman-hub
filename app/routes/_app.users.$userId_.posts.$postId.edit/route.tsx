@@ -12,9 +12,9 @@ import { Sheet, SheetTrigger } from '~/components/shadcn/ui/sheet';
 import { Switch } from '~/components/shadcn/ui/switch';
 import { ButtonLink } from '~/components/shared/button-link';
 import { ConformInput } from '~/components/shared/conform/conform-input';
+import { PostPreview } from '~/components/shared/post-preview/post-preview';
 import { commitSession, getSession } from '~/sessions.server';
 import type { Route } from './+types/route';
-import { Preview } from './components/preview';
 import {
   editPostFormSchema,
   useEditPostForm,
@@ -279,7 +279,7 @@ export const EditPostPage = ({
             />
           </div>
           {/* 記事プレビュー */}
-          <Preview className="flex-1" />
+          <PostPreview className="flex-1" />
         </div>
       </fetcher.Form>
       <Outlet />

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { prisma } from '~/.server/lib/prisma-client';
+import { PostPreview } from '~/components/shared/post-preview/post-preview';
 import { Toc } from '~/components/shared/toc';
 import type { Route } from './+types/route';
 import { PostHeader } from './components/post-header';
-import { Preview } from './components/preview';
 import { useDocStore } from './stores/doc-store';
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
@@ -44,7 +44,7 @@ const PostPage = ({ loaderData }: Route.ComponentProps) => {
             <section className="flex flex-col space-y-4 bg-background p-4 sm:rounded-sm sm:p-8 lg:col-span-8">
               {/* <PostTags post={post} /> */}
               <div className="content">
-                <Preview />
+                <PostPreview />
               </div>
             </section>
             <div className="hidden items-start lg:col-span-2 lg:flex">
