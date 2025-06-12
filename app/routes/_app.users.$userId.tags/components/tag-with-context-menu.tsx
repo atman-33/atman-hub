@@ -15,34 +15,36 @@ interface TagWithContextMenuProps {
 export const TagWithContextMenu = ({ tag }: TagWithContextMenuProps) => {
   const { userId } = useParams();
   return (
-    <ContextMenu>
-      <ContextMenuTrigger className="cursor-pointer">
-        <TagComponent name={tag.name} imageUrl={tag.image || ''} />
-      </ContextMenuTrigger>
-      <ContextMenuContent>
-        <Link
-          to={`/users/${userId}/tags/${tag.id}/edit`}
-          className="transition-opacity hover:opacity-80"
-        >
-          <ContextMenuItem>Edit</ContextMenuItem>
-        </Link>
-        <Form
-          method="post"
-          action={`/users/${userId}/tags/${tag.id}/delete`}
-          className="transition-opacity hover:opacity-80"
-        >
-          <button
-            type="submit"
-            name="_action"
-            value="delete"
-            className="w-full"
+    <Link to={`/users/${userId}/tags/${tag.id}/edit`}>
+      <ContextMenu>
+        <ContextMenuTrigger className="cursor-pointer">
+          <TagComponent name={tag.name} imageUrl={tag.image || ''} />
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <Link
+            to={`/users/${userId}/tags/${tag.id}/edit`}
+            className="transition-opacity hover:opacity-80"
           >
-            <ContextMenuItem className="text-destructive">
-              Delete
-            </ContextMenuItem>
-          </button>
-        </Form>
-      </ContextMenuContent>
-    </ContextMenu>
+            <ContextMenuItem>Edit</ContextMenuItem>
+          </Link>
+          <Form
+            method="post"
+            action={`/users/${userId}/tags/${tag.id}/delete`}
+            className="transition-opacity hover:opacity-80"
+          >
+            <button
+              type="submit"
+              name="_action"
+              value="delete"
+              className="w-full"
+            >
+              <ContextMenuItem className="text-destructive">
+                Delete
+              </ContextMenuItem>
+            </button>
+          </Form>
+        </ContextMenuContent>
+      </ContextMenu>
+    </Link>
   );
 };
