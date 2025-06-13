@@ -35,10 +35,10 @@
   height: 6px;
   width: 6px;
   border-radius: 9999px; /* rounded-full */
-  background-color: none; /* bg-card */
+  background-color: transparent; /* bg-card */
   border-width: 2px;
   border-style: solid;
-  border-color: none;
+  border-color: transparent;
   box-shadow: 0 0 0 2px lightgray;
 }
 
