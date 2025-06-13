@@ -9,8 +9,9 @@ interface ImageUploaderProps {
 
 export const ImageUploader = ({ image }: ImageUploaderProps) => {
   const [isDragActive, setIsDragActive] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(
-    image || null,
+  // NOTE: 画像が読み込まれている場合は、imageのURLを設定する
+  const [selectedImage, setSelectedImage] = useState<string>(
+    image !== null ? `${image}/-/scale_crop/300x300/-/rasterize/` : ImageLogo,
   );
   const setImage = useImageStore((state) => state.setFile);
 
@@ -96,11 +97,7 @@ export const ImageUploader = ({ image }: ImageUploaderProps) => {
             onDrop={(e) => handleDrop(e)}
           />
           <img
-            src={
-              selectedImage
-                ? `${selectedImage}/-/scale_crop/300x300/-/rasterize/`
-                : ImageLogo
-            }
+            src={selectedImage}
             alt="imagelogo"
             className="absolute top-16 z-0 h-20"
           />
