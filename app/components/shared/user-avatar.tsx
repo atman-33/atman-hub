@@ -1,9 +1,8 @@
-import type { User } from '@prisma/client';
 import { MdAccountCircle } from 'react-icons/md';
 import { Avatar, AvatarFallback, AvatarImage } from '../shadcn/ui/avatar';
 
 interface UserAvatarProps {
-  user: Omit<User, 'password'> | undefined;
+  user: { id: string; name: string; image: string | null } | undefined;
   className?: string;
 }
 

@@ -13,7 +13,7 @@ interface HeaderProps {
 
 export const Header = ({ user }: HeaderProps) => {
   return (
-    <header className="top-0 z-50 mx-auto flex justify-center border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="top-0 z-50 mx-auto flex justify-center border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-4 flex h-14 w-full items-center justify-center md:container md:w-10/12">
         <MainNav />
         {/* <MobileNav docsConfig={docsConfig} /> */}

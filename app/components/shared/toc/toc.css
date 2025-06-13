@@ -1,0 +1,57 @@
+.toc {
+  padding-top: 0.5rem; /* py-2 */
+  padding-bottom: 0.5rem;
+  padding-right: 0.75rem; /* pr-3 */
+}
+
+.toc .toc-list .toc-list {
+  border-left-width: 2px; /* border-l-2 */
+  border-color: lightgray; 
+  margin-left: 18px; /* ml-[18px] */
+}
+
+.toc .toc-link {
+  --lightgray: 211 211 211;
+  display: flex;
+  width: 100%;
+  padding-top: 0.25rem; /* py-1 */
+  padding-bottom: 0.25rem;
+  padding-left: 2.25rem; /* pl-9 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 700; /* font-bold */
+  position: relative;
+  color: gray
+}
+
+.toc .toc-link:hover {
+  color: black; 
+}
+
+.toc .toc-link::before {
+  content: '';
+  position: absolute;
+  left: 1rem; /* left-4 */
+  top: 10px;
+  height: 6px;
+  width: 6px;
+  border-radius: 9999px; /* rounded-full */
+  background-color: transparent; /* bg-card */
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px lightgray;
+}
+
+.toc .node-name--H3,
+.toc .node-name--H4,
+.toc .node-name--H5,
+.toc .node-name--H6 {
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 400; /* font-normal */
+}
+
+.toc .is-active-link {
+  --dodgerblue: 30 144 255;
+  font-weight: 700; /* font-bold */
+  color: black; /* text-foreground */
+}

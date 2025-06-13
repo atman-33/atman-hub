@@ -3,7 +3,7 @@ import {
   transformerNotationFocus,
   transformerNotationHighlight,
 } from '@shikijs/transformers';
-import { Marked } from 'marked';
+import { Marked, type Tokens } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import { highlighter } from '~/lib/highlighter';
 import { transformerAddCopyButton } from '~/lib/shiki-transformers/transformer-add-copy-button';
@@ -28,11 +28,24 @@ import { transformerAddCopyButton } from '~/lib/shiki-transformers/transformer-a
  * @returns {Marked} A configured instance of the `Marked` class.
  */
 const getMarked = () => {
-  return new Marked(
-    {
-      gfm: true,
-      breaks: true,
+  const marked = new Marked({
+    gfm: true,
+    breaks: true,
+    renderer: {
+      heading(this, token: Tokens.Heading) {
+        const slug = slugify(token.raw || token.text);
+
+        // バッククォートを除去して中身だけ取り出し
+        const text = (token.text || '').replace(/`(.*?)`/g, '$1');
+        // HTMLエスケープする（タグっぽい文字列を文字列として表示）
+        const cleanText = escapeHtml(text);
+
+        return `<h${token.depth} id="${slug}">${cleanText}</h${token.depth}>`;
+      },
     },
+  });
+
+  marked.use(
     markedHighlight({
       highlight(code, lang) {
         const language = highlighter.getLoadedLanguages().includes(lang)
@@ -51,6 +64,23 @@ const getMarked = () => {
       },
     }),
   );
+
+  return marked;
 };
 
 export { getMarked };
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '') // 記号を除去
+    .replace(/\s+/g, '-'); // 空白をハイフンに
+
+const escapeHtml = (str: string) =>
+  str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');

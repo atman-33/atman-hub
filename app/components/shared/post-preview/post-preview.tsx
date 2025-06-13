@@ -1,16 +1,14 @@
 import '~/lib/shiki-transformers/transformer-add-copy-button.css';
-import './preview.css';
+import './post-preview.css';
 
 import { ClientOnly } from '~/components/shared/client-only';
-import { useDocStore } from '../stores/doc-store';
 
-interface PreviewProps {
+interface PostPreviewProps {
+  html: string;
   className?: string;
 }
 
-export const Preview = ({ className }: PreviewProps) => {
-  const html = useDocStore((state) => state.docHtml);
-
+export const PostPreview = ({ html, className }: PostPreviewProps) => {
   return (
     <ClientOnly>
       {() => (

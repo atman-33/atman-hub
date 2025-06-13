@@ -39,7 +39,7 @@ export const LoginButton = ({ user }: LoginButtonProps) => {
     <>
       {user ? (
         <DropdownMenu>
-          <DropdownMenuTrigger className="focus:!outline-none">
+          <DropdownMenuTrigger className="focus:!outline-none cursor-pointer">
             <UserAvatar user={user} />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="flex flex-col">
