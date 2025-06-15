@@ -235,7 +235,7 @@ export const useMarkdownEditor = ({
         fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace, 'Segoe UI Emoji'`,
         '-webkit-font-smoothing': 'antialiased',
         letterSpacing: '0.02em',
-        fontSize: '15px',
+        fontSize: '0.9em',
         lineHeight: '1.8',
         color: '#000000',
       },
