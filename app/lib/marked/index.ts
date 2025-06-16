@@ -48,8 +48,10 @@ const getMarked = () => {
   marked.use(
     markedHighlight({
       highlight(code, lang) {
-        const language = highlighter.getLoadedLanguages().includes(lang)
-          ? lang
+        // コロン以降を除去して純粋な言語名だけにする
+        const baseLang = lang?.split(':')[0]?.trim() || '';
+        const language = highlighter.getLoadedLanguages().includes(baseLang)
+          ? baseLang
           : 'plaintext';
         return highlighter.codeToHtml(code, {
           lang: language,
