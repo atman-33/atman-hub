@@ -236,7 +236,7 @@ export const useMarkdownEditor = ({
         '-webkit-font-smoothing': 'antialiased',
         letterSpacing: '0.02em',
         fontSize: '0.9em',
-        lineHeight: '1.8',
+        lineHeight: '1.7',
         color: '#000000',
       },
       // 選択範囲の背景色
