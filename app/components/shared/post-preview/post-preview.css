@@ -49,11 +49,11 @@
 
   p {
     line-height: 1.75;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
   }
 
   ul {
-    margin: 1.5rem 0;
+    margin: 1.0rem 0;
     margin-left: 1.5rem;
     list-style-type: disc;
   }
@@ -95,6 +95,7 @@
   table {
     margin: 1rem 0;
     width: 100%;
+    font-size: 0.8rem;
   }
 
   tr {
@@ -104,14 +105,15 @@
   }
 
   th {
-    border: 1px solid;
+    border: 1px solid lightgray;
     padding: 0.5rem 1rem;
     text-align: left;
     font-weight: bold;
+    background-color: whitesmoke;
   }
 
   td {
-    border: 1px solid;
+    border: 1px solid lightgray;
     padding: 0.5rem 1rem;
     text-align: left;
   }
@@ -119,9 +121,8 @@
   code:not(:has(span)) {
     margin: 0 0.25rem;
     border-radius: 0.25rem;
-    background-color: #d4d4d4;
+    background-color: whitesmoke;
     padding: 0.25rem;
-    font-weight: bold;
   }
 
   code > pre {
