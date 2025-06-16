@@ -6,7 +6,7 @@
     margin-top: 1rem;
     scroll-margin: 5rem;
     word-break: break-word;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid lightgray;
     padding-bottom: 0.5rem;
     font-size: 1.5rem;
     font-weight: 600;
@@ -14,7 +14,7 @@
   }
 
   h3 {
-    margin-top: 2rem;
+    margin-top: 1rem;
     scroll-margin: 5rem;
     word-break: break-word;
     font-size: 1.25rem;
@@ -24,7 +24,7 @@
 
   h4,
   h5 {
-    margin-top: 2rem;
+    margin-top: 1rem;
     scroll-margin: 5rem;
     word-break: break-word;
     font-size: 1.125rem;
@@ -48,8 +48,8 @@
   }
 
   p {
-    line-height: 1.75;
-    margin-top: 0.5rem;
+    line-height: 1.5;
+    margin-top: 1.0rem;
   }
 
   ul {
@@ -93,7 +93,7 @@
   }
 
   table {
-    margin: 1rem 0;
+    margin: 1rem 0 2rem 0;
     width: 100%;
     font-size: 0.8rem;
   }
