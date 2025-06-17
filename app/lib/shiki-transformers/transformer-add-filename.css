@@ -1,0 +1,16 @@
+pre {
+  overflow: visible!important;
+}
+
+
+pre .filename {
+  position: absolute;
+  top: -12px;
+  left: 0px;
+  background: black;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px 4px 4px 0px;
+  font-size: 0.85em;
+  z-index: 1;
+}
