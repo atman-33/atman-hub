@@ -1,4 +1,5 @@
 import '~/lib/shiki-transformers/transformer-add-copy-button.css';
+import '~/lib/shiki-transformers/transformer-add-filename.css';
 import './post-preview.css';
 
 import { ClientOnly } from '~/components/shared/client-only';

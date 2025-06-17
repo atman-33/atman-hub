@@ -7,6 +7,7 @@ import { Marked, type Tokens } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import { highlighter } from '~/lib/highlighter';
 import { transformerAddCopyButton } from '~/lib/shiki-transformers/transformer-add-copy-button';
+import { transformerAddFilename } from '../shiki-transformers/transformer-add-filename';
 
 // NOTE:
 // store側では、getMarked()でインスタンス化したMarkedを扱うこと。
@@ -48,8 +49,10 @@ const getMarked = () => {
   marked.use(
     markedHighlight({
       highlight(code, lang) {
-        // コロン以降を除去して純粋な言語名だけにする
-        const baseLang = lang?.split(':')[0]?.trim() || '';
+        // コロンで分割
+        const [baseLang, filename] = lang
+          ?.split(':')
+          .map((part) => part.trim()) ?? ['', ''];
         const language = highlighter.getLoadedLanguages().includes(baseLang)
           ? baseLang
           : 'plaintext';
@@ -61,6 +64,7 @@ const getMarked = () => {
             transformerNotationHighlight(),
             transformerNotationFocus(),
             transformerAddCopyButton(),
+            transformerAddFilename(filename),
           ],
         });
       },
