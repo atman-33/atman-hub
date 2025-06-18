@@ -1,11 +1,11 @@
-pre {
+/* NOTE: overflowをvisibleにすると、ファイル名がコードブロックからはみ出しても表示されるが、コードブロック内で折り返しができなくなるため、この方法は使わないこととした。*/
+/* pre {
   overflow: visible!important;
-}
-
+} */
 
 pre .filename {
   position: absolute;
-  top: -12px;
+  top: 0px;
   left: 0px;
   background: black;
   color: white;

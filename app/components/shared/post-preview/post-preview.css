@@ -129,7 +129,7 @@
     margin: 1rem 0;
     overflow-x: auto;
     border-radius: 0.5rem;
-    padding: 1rem;
+    padding: 2rem 1rem;
   }
 
   .line {
@@ -180,4 +180,15 @@
   .has-focused .focused {
     filter: blur(0);
   }
+
+  /* メッセージボックス */
+  /* .message-box {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: aliceblue;
+  }
+
+    .icon-message {
+      background-image: url(/icons/copy.svg);
+    } */
 }
