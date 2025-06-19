@@ -3,11 +3,13 @@ import {
   transformerNotationFocus,
   transformerNotationHighlight,
 } from '@shikijs/transformers';
-import { Marked, type Tokens } from 'marked';
+import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import { highlighter } from '~/lib/highlighter';
 import { transformerAddCopyButton } from '~/lib/shiki-transformers/transformer-add-copy-button';
 import { transformerAddFilename } from '../shiki-transformers/transformer-add-filename';
+import { headingExtention } from './heading-extension';
+import { messageExtension } from './message-extension';
 
 // NOTE:
 // store側では、getMarked()でインスタンス化したMarkedを扱うこと。
@@ -32,19 +34,10 @@ const getMarked = () => {
   const marked = new Marked({
     gfm: true,
     breaks: true,
-    renderer: {
-      heading(this, token: Tokens.Heading) {
-        const slug = slugify(token.raw || token.text);
-
-        // バッククォートを除去して中身だけ取り出し
-        const text = (token.text || '').replace(/`(.*?)`/g, '$1');
-        // HTMLエスケープする（タグっぽい文字列を文字列として表示）
-        const cleanText = escapeHtml(text);
-
-        return `<h${token.depth} id="${slug}">${cleanText}</h${token.depth}>`;
-      },
-    },
   });
+
+  marked.use(headingExtention);
+  marked.use(messageExtension);
 
   marked.use(
     markedHighlight({
@@ -75,18 +68,3 @@ const getMarked = () => {
 };
 
 export { getMarked };
-
-const slugify = (text: string) =>
-  text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '') // 記号を除去
-    .replace(/\s+/g, '-'); // 空白をハイフンに
-
-const escapeHtml = (str: string) =>
-  str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
