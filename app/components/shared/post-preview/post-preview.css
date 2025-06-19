@@ -125,7 +125,7 @@
     padding: 0.25rem;
   }
 
-  code > pre {
+  code>pre {
     margin: 1rem 0;
     overflow-x: auto;
     border-radius: 0.5rem;
@@ -182,13 +182,27 @@
   }
 
   /* メッセージボックス */
-  /* .message-box {
+  .message-box {
     padding: 1rem;
     border-radius: 0.5rem;
     background-color: aliceblue;
-  }
+    display: flex;
+    align-items: flex-start;
 
     .icon-message {
-      background-image: url(/icons/copy.svg);
-    } */
+      background-image: url(/icons/info.svg);
+      position: relative;
+      left: -0.5rem;
+      width: 50px;
+      height: 20px;
+      display: inline-flex;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    p {
+      margin-top: 0rem;
+    }
+  }
 }
