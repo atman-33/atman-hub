@@ -1,15 +1,24 @@
 import type { MarkedExtension, Tokens } from 'marked';
 
 export const messageExtension: MarkedExtension = {
-  renderer: {
-    paragraph(token: Tokens.Paragraph) {
+  extensions: [
+    {
+      name: 'message',
+      level: 'block',
+      tokenizer(src: string) {
       const rule = /^:::\s*message\s*\n([\s\S]+?)\n:::/;
-      const match = rule.exec(token.raw);
+      const match = rule.exec(src);
       if (match) {
-        const messageText = match[1].trim();
-        return `<div class="message-box"><span class="icon-message"></span><p class="message-content">${messageText}</p></div>`;
-      }
-      return `<p>${token.text}</p>`;
+        return {
+            type: 'message',
+            raw: match[0],
+            text: match[1].trim(),
+          };
+        }
+      },
+      renderer(token: Tokens.Generic) {
+        return `<div class="message-box"><span class="icon-message"></span><div class="message-content">${token.text}</div></div>`;
     },
   },
+],
 };
