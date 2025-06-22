@@ -6,19 +6,19 @@ export const messageExtension: MarkedExtension = {
       name: 'message',
       level: 'block',
       tokenizer(src: string) {
-      const rule = /^:::\s*message\s*\n([\s\S]+?)\n:::/;
-      const match = rule.exec(src);
-      if (match) {
-        return {
+        const rule = /^:::\s*message\s*\n([\s\S]+?)\n:::/;
+        const match = rule.exec(src);
+        if (match) {
+          return {
             type: 'message',
             raw: match[0],
-            text: match[1].trim(),
+            text: match[1],
           };
         }
       },
       renderer(token: Tokens.Generic) {
-        return `<div class="message-box"><span class="icon-message"></span><div class="message-content">${token.text}</div></div>`;
+        return `<div class="message-box"><span class="icon-message"></span><div class="message-content">${token.text.replace(/\n/g, '<br>')}</div></div>`;
+      },
     },
-  },
-],
+  ],
 };
