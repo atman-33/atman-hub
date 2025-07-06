@@ -34,11 +34,11 @@
 
 ### Blogs Tab Implementation
 
-- [ ] Extend card grid for blog posts
-- [ ] Create BlogCard component:
+- [x] Extend card grid for blog posts
+- [x] Create BlogCard component:
   - Title, Excerpt, Date, Platform icon
   - External link handling
-- [ ] Implement blogs.config.ts:
+- [x] Implement blogs.config.ts:
   - Define BlogItem interface
   - Add platform-specific styling (Zenn/Medium)
 
