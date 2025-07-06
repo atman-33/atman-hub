@@ -1,6 +1,29 @@
 import type { BlogItem } from '../../../config/blogs-config';
 
-export default function BlogCard({ blog }: { blog: BlogItem }) {
+type BlogCardProps =
+  | {
+      blog: BlogItem;
+      isLoading?: false;
+    }
+  | {
+      blog?: never;
+      isLoading: true;
+    };
+
+export default function BlogCard(props: BlogCardProps) {
+  const { isLoading } = props;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-2 rounded-lg border p-4">
+        <div className="h-4 w-16 rounded bg-gray-200" />
+        <div className="h-6 w-full rounded bg-gray-200" />
+        <div className="h-4 w-full rounded bg-gray-200" />
+        <div className="h-4 w-24 rounded bg-gray-200" />
+      </div>
+    );
+  }
+
+  const { blog } = props;
   return (
     <div className="group flex flex-col gap-2 rounded-lg border p-4 transition-all hover:scale-[1.02] hover:shadow-md">
       <div className="flex items-center gap-2">
