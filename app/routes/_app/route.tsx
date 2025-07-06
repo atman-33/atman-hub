@@ -6,7 +6,7 @@ import { Profile } from './components/profile';
 const AppLayout = () => {
   return (
     <>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto pt-4 px-4 sm:px-6 lg:px-8">
         <Header />
         <Profile
           imageUrl="/profile.jpg"
