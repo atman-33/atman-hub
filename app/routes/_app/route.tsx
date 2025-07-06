@@ -1,4 +1,6 @@
 import { Outlet } from 'react-router';
+import GithubIcon from '~/components/icons/github-icon';
+import XIcon from '~/components/icons/x-icon';
 import Footer from '~/routes/_app/components/footer';
 import Header from './components/header';
 import { Profile } from './components/profile';
@@ -22,17 +24,12 @@ const AppLayout = () => {
             {
               name: 'GitHub',
               url: 'https://github.com/atman',
-              icon: <span className="i-mdi-github text-xl" />,
+              icon: <GithubIcon className="w-5 h-5" />,
             },
             {
-              name: 'Twitter',
+              name: 'X',
               url: 'https://twitter.com/atman',
-              icon: <span className="i-mdi-twitter text-xl" />,
-            },
-            {
-              name: 'LinkedIn',
-              url: 'https://linkedin.com/in/atman',
-              icon: <span className="i-mdi-linkedin text-xl" />,
+              icon: <XIcon className="w-5 h-5" />,
             },
           ]}
         />
