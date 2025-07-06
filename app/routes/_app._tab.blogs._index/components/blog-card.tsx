@@ -32,7 +32,7 @@ export default function BlogCard(props: BlogCardProps) {
       className="group block overflow-hidden rounded-xl border bg-card shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.03]"
     >
       {blog.image && (
-        <div className="flex justify-center p-4">
+        <div className="flex justify-center p-4 dark:bg-white">
           <img
             src={blog.image}
             alt={blog.title}
