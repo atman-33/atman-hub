@@ -29,17 +29,21 @@ export default function BlogCard(props: BlogCardProps) {
       href={blog.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col gap-2 rounded-lg border p-4 transition-all hover:scale-[1.02] hover:shadow-md cursor-pointer"
+      className="group block overflow-hidden rounded-xl border bg-card shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.03]"
     >
       {blog.image && (
-        <img
-          src={blog.image}
-          alt={blog.title}
-          className="h-12 w-auto object-contain"
-        />
+        <div className="flex justify-center p-4">
+          <img
+            src={blog.image}
+            alt={blog.title}
+            className="h-12 w-auto object-contain"
+          />
+        </div>
       )}
-      <h3 className="text-lg font-semibold">{blog.title}</h3>
-      <p className="text-sm text-muted-foreground">{blog.description}</p>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold">{blog.title}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{blog.description}</p>
+      </div>
     </a>
   );
 }

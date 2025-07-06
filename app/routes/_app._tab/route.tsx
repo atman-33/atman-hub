@@ -1,16 +1,14 @@
 import { Outlet } from 'react-router';
-import { Separator } from '~/components/ui/separator';
 import { AppNavLink } from './components/app-nav-link';
 
 const AppTabLayout = () => {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-2">
+      <div className="flex justify-center gap-8 border-b">
         <AppNavLink to="/">Apps</AppNavLink>
         <AppNavLink to="/blogs">Blogs</AppNavLink>
       </div>
-      <Separator />
-      <div className="py-4">
+      <div className="py-6 animate-fade-in animate-duration-500">
         <Outlet />
       </div>
     </>

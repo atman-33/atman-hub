@@ -26,7 +26,7 @@ export function AppCard({ app, isLoading = false }: AppCardProps) {
   }
 
   return (
-    <div className="group relative overflow-hidden rounded-lg border bg-card p-4 shadow-sm transition-all hover:scale-[1.02] hover:shadow-md">
+    <div className="group relative overflow-hidden rounded-xl border bg-card shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.03]">
       <div className="aspect-video overflow-hidden rounded-md bg-muted">
         {imageError ? (
           <div className="flex h-full w-full items-center justify-center bg-destructive/10">
@@ -42,10 +42,10 @@ export function AppCard({ app, isLoading = false }: AppCardProps) {
           />
         )}
       </div>
-      <div className="mt-4 space-y-2">
+      <div className="mt-4 p-2">
         <h3 className="text-lg font-semibold">{app.title}</h3>
-        <p className="text-sm text-muted-foreground">{app.description}</p>
-        <div className="flex flex-wrap gap-2">
+        <p className="mt-1 text-sm text-muted-foreground">{app.description}</p>
+        <div className="mt-3 flex flex-wrap gap-2">
           {app.tags.map((tag) => (
             <span
               key={tag}

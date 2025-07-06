@@ -15,7 +15,7 @@ interface ProfileProps {
 export function Profile({ imageUrl, bio, socialLinks }: ProfileProps) {
   return (
     <div className="flex flex-col items-center gap-6 py-8">
-      <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary">
+      <div className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-primary">
         <img
           src={imageUrl}
           alt="User profile avatar"

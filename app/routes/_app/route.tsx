@@ -6,7 +6,7 @@ import { Profile } from './components/profile';
 const AppLayout = () => {
   return (
     <>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <Header />
         <Profile
           imageUrl="/profile.jpg"
@@ -22,21 +22,23 @@ const AppLayout = () => {
             {
               name: 'GitHub',
               url: 'https://github.com/atman',
-              icon: <span className="i-mdi-github text-2xl" />,
+              icon: <span className="i-mdi-github text-xl" />,
             },
             {
               name: 'Twitter',
               url: 'https://twitter.com/atman',
-              icon: <span className="i-mdi-twitter text-2xl" />,
+              icon: <span className="i-mdi-twitter text-xl" />,
             },
             {
               name: 'LinkedIn',
               url: 'https://linkedin.com/in/atman',
-              icon: <span className="i-mdi-linkedin text-2xl" />,
+              icon: <span className="i-mdi-linkedin text-xl" />,
             },
           ]}
         />
-        <Outlet />
+        <div className="animate-fade-in animate-duration-500">
+          <Outlet />
+        </div>
       </div>
       <Footer />
     </>
