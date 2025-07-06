@@ -43,7 +43,12 @@ export function AppCard({ app, isLoading = false }: AppCardProps) {
         )}
       </div>
       <div className="mt-4 p-2">
-        <h3 className="text-lg font-semibold">{app.title}</h3>
+        <div className="flex items-center gap-2">
+          {app.icon && (
+            <img src={app.icon} alt="App Icon" className="h-5 w-5" />
+          )}
+          <h3 className="text-lg font-semibold">{app.title}</h3>
+        </div>
         <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
           {app.description}
         </p>

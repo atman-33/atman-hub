@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import type { AppItem } from '~/config/apps-config';
 import { AppCard } from './app-card';
 
@@ -12,18 +13,23 @@ export function AppsGrid({ apps, isLoading = false }: AppsGridProps) {
       {isLoading
         ? Array(6)
             .fill(0)
-            .map((_, _i) => (
+            .map((_, i) => (
               <div
-                key={`skeleton-${crypto.randomUUID()}`}
+                key={`skeleton-${
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <>
+                  i
+                }`}
                 className="h-[300px] w-[280px]"
               >
                 <AppCard isLoading />
               </div>
             ))
         : apps.map((app) => (
-            <div key={app.id} className="h-[300px] w-[280px]">
-              <AppCard app={app} />
-            </div>
+            <Fragment key={app.title}>
+              <div className="h-[300px] w-[280px]">
+                <AppCard app={app} />
+              </div>
+            </Fragment>
           ))}
     </div>
   );
