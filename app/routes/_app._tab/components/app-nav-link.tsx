@@ -12,6 +12,7 @@ export const AppNavLink = ({
   return (
     <NavLink
       to={to}
+      preventScrollReset
       className={({ isActive, isPending }) =>
         cn(
           'flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors',
