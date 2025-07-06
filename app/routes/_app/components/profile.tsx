@@ -8,7 +8,7 @@ interface SocialLink {
 
 interface ProfileProps {
   imageUrl: string;
-  bio: string;
+  bio: React.ReactNode;
   socialLinks: SocialLink[];
 }
 

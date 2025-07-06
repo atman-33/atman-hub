@@ -10,7 +10,14 @@ const AppLayout = () => {
         <Header />
         <Profile
           imageUrl="/profile.jpg"
-          bio="Hello, I'm Atman — a software engineer focused on developing practical apps through personal projects. Thanks for visiting!"
+          bio={
+            <>
+              Hello, I'm Atman — a software engineer focused on developing
+              practical apps through personal projects.
+              <br />
+              Thanks for visiting!
+            </>
+          }
           socialLinks={[
             {
               name: 'GitHub',
