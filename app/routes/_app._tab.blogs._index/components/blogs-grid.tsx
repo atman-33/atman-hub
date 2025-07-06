@@ -1,4 +1,4 @@
-import type { BlogItem } from '~/config/blogs-config';
+import type { BlogItem } from '../../../config/blogs-config';
 import BlogCard from './blog-card';
 
 interface BlogsGridProps {
