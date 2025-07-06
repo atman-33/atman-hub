@@ -41,9 +41,3 @@
 - [x] Implement blogs.config.ts:
   - Define BlogItem interface
   - Add platform-specific styling (Zenn/Medium)
-
-## Phase 3: Analytics & Enhancements
-
-### Performance Tracking
-
-- [ ] Add basic analytics (page views)
