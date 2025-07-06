@@ -1,0 +1,1 @@
+import{w as e,o as t}from"./chunk-QMGIS6GS-Bb0XiPsb.js";function r({}){return[{title:"AtmanHub"},{name:"description",content:"..."}]}const a=e(function(){return t.jsx("div",{className:"container mx-auto p-4",children:t.jsx("div",{className:"flex flex-col gap-6 md:flex-row",children:"(wip...)"})})});export{a as default,r as meta};
