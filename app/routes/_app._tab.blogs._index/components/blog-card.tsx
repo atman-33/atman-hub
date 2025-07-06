@@ -25,7 +25,12 @@ export default function BlogCard(props: BlogCardProps) {
 
   const { blog } = props;
   return (
-    <div className="group flex flex-col gap-2 rounded-lg border p-4 transition-all hover:scale-[1.02] hover:shadow-md">
+    <a
+      href={blog.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex flex-col gap-2 rounded-lg border p-4 transition-all hover:scale-[1.02] hover:shadow-md cursor-pointer"
+    >
       {blog.image && (
         <img
           src={blog.image}
@@ -35,14 +40,6 @@ export default function BlogCard(props: BlogCardProps) {
       )}
       <h3 className="text-lg font-semibold">{blog.title}</h3>
       <p className="text-sm text-muted-foreground">{blog.description}</p>
-      <a
-        href={blog.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-2 text-sm font-medium text-primary hover:underline"
-      >
-        Read more →
-      </a>
-    </div>
+    </a>
   );
 }
