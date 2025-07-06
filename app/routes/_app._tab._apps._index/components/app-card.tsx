@@ -27,7 +27,7 @@ export function AppCard({ app, isLoading = false }: AppCardProps) {
 
   return (
     <div className="group relative overflow-hidden rounded-xl border bg-card shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.03]">
-      <div className="aspect-video overflow-hidden rounded-md bg-muted">
+      <div className="aspect-video overflow-hidden rounded-md rounded-b-none bg-muted">
         {imageError ? (
           <div className="flex h-full w-full items-center justify-center bg-destructive/10">
             <span className="text-destructive">Image failed to load</span>
