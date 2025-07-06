@@ -1,0 +1,45 @@
+import { Button } from '~/components/ui/button';
+import { useThemeStore } from '~/stores/theme';
+
+interface SocialLink {
+  name: string;
+  url: string;
+  icon: React.ReactNode;
+}
+
+interface ProfileProps {
+  imageUrl: string;
+  bio: string;
+  socialLinks: SocialLink[];
+}
+
+export function Profile({ imageUrl, bio, socialLinks }: ProfileProps) {
+  const { theme } = useThemeStore();
+
+  return (
+    <div className="flex flex-col items-center gap-6 py-8">
+      <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary">
+        <img
+          src={imageUrl}
+          alt="User profile avatar"
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <div className="prose dark:prose-invert max-w-none text-center">
+        {bio}
+      </div>
+
+      <div className="flex gap-4">
+        {socialLinks.map((link) => (
+          <Button key={link.name} variant="ghost" size="icon" asChild>
+            <a href={link.url} target="_blank" rel="noopener noreferrer">
+              {link.icon}
+              <span className="sr-only">{link.name}</span>
+            </a>
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+}
