@@ -1,13 +1,41 @@
 import { Outlet } from 'react-router';
+import GithubIcon from '~/components/icons/github-icon';
+import XIcon from '~/components/icons/x-icon';
 import Footer from '~/routes/_app/components/footer';
 import Header from './components/header';
+import { Profile } from './components/profile';
 
 const AppLayout = () => {
   return (
     <>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto pt-4 px-4 sm:px-6 lg:px-8">
         <Header />
-        <Outlet />
+        <Profile
+          imageUrl="/images/profile.jpg"
+          bio={
+            <>
+              Hello, I'm Atman — a software engineer focused on developing
+              practical apps through personal projects.
+              <br />
+              Thanks for visiting!
+            </>
+          }
+          socialLinks={[
+            {
+              name: 'GitHub',
+              url: 'https://github.com/atman-33',
+              icon: <GithubIcon className="w-8 h-8" />,
+            },
+            {
+              name: 'X',
+              url: 'https://twitter.com/atman_33',
+              icon: <XIcon className="w-8 h-8" />,
+            },
+          ]}
+        />
+        <div className="animate-fade-in animate-duration-500">
+          <Outlet />
+        </div>
       </div>
       <Footer />
     </>
