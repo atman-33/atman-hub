@@ -1,5 +1,4 @@
 import { Button } from '~/components/ui/button';
-import { useThemeStore } from '~/stores/theme';
 
 interface SocialLink {
   name: string;
@@ -14,8 +13,6 @@ interface ProfileProps {
 }
 
 export function Profile({ imageUrl, bio, socialLinks }: ProfileProps) {
-  const { theme } = useThemeStore();
-
   return (
     <div className="flex flex-col items-center gap-6 py-8">
       <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary">
