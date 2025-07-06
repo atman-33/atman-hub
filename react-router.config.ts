@@ -14,4 +14,7 @@ export default {
     );
   },
   ssr: false,
+  // NOTE: prendering with basename and ssr:false renders 404s for dynamic routes
+  // https://github.com/remix-run/react-router/pull/13791
+  // prerender: ["/sitemap.xml", "/robots.txt"],
 } satisfies Config;
