@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://atman-33.github.io/atman-hub/sitemap.xml
