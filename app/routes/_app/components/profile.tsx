@@ -35,7 +35,12 @@ export function Profile({ imageUrl, bio, socialLinks }: ProfileProps) {
             className="transition-all duration-300 transform hover:scale-110 "
             asChild
           >
-            <a href={link.url} target="_blank" rel="noopener noreferrer">
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="dark:text-white"
+            >
               {link.icon}
               <span className="sr-only">{link.name}</span>
             </a>

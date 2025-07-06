@@ -42,7 +42,9 @@ export default function BlogCard(props: BlogCardProps) {
       )}
       <div className="p-4">
         <h3 className="text-lg font-semibold">{blog.title}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">{blog.description}</p>
+        <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+          {blog.description}
+        </p>
       </div>
     </a>
   );

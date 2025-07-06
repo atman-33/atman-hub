@@ -44,7 +44,9 @@ export function AppCard({ app, isLoading = false }: AppCardProps) {
       </div>
       <div className="mt-4 p-2">
         <h3 className="text-lg font-semibold">{app.title}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">{app.description}</p>
+        <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+          {app.description}
+        </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {app.tags.map((tag) => (
             <span

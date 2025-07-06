@@ -8,6 +8,19 @@ export interface BlogItem {
 export const blogs: BlogItem[] = [
   {
     title: 'Zenn Articles',
+    description:
+      'Technical articles and tutorials xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx zzzzzzzzzzz aaaaaaaaaaaaaaaaaaaaa',
+    url: 'https://zenn.dev/yourusername',
+    image: '/images/zenn-logo.png',
+  },
+  {
+    title: 'Medium Articles',
+    description: 'Technical writing in English',
+    url: 'https://medium.com/@yourusername',
+    image: '/images/medium-logo.png',
+  },
+  {
+    title: 'Zenn Articles',
     description: 'Technical articles and tutorials',
     url: 'https://zenn.dev/yourusername',
     image: '/images/zenn-logo.png',
