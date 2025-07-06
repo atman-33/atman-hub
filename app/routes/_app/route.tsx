@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router';
 import GithubIcon from '~/components/icons/github-icon';
 import XIcon from '~/components/icons/x-icon';
+import { siteConfig } from '~/config/site-config';
 import Footer from '~/routes/_app/components/footer';
 import Header from './components/header';
 import { Profile } from './components/profile';
@@ -11,7 +12,7 @@ const AppLayout = () => {
       <div className="container mx-auto pt-4 px-4 sm:px-6 lg:px-8">
         <Header />
         <Profile
-          imageUrl="/images/profile.jpg"
+          imageUrl={siteConfig.profileImageUrl}
           bio={
             <>
               Hello, I'm Atman — a software engineer focused on developing
@@ -23,12 +24,12 @@ const AppLayout = () => {
           socialLinks={[
             {
               name: 'GitHub',
-              url: 'https://github.com/atman-33',
+              url: siteConfig.githubUrl,
               icon: <GithubIcon className="w-8 h-8" />,
             },
             {
               name: 'X',
-              url: 'https://twitter.com/atman_33',
+              url: siteConfig.xUrl,
               icon: <XIcon className="w-8 h-8" />,
             },
           ]}
