@@ -4,7 +4,7 @@
 
 ### Core Layout Implementation (Ref: 7.1)
 
-- [ ] Create base page layout components:
+- [x] Create base page layout components:
   - Header with site title/logo
   - Profile section (photo + introduction)
   - Tab navigation component (Apps/Blogs/Games)

@@ -5,7 +5,7 @@ import { AppNavLink } from './components/app-nav-link';
 const AppTabLayout = () => {
   return (
     <>
-      <div className="flex gap-12 rounded-md px-8 text-sm">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 py-2">
         <AppNavLink to="/">Apps</AppNavLink>
         <AppNavLink to="/blogs">Blogs</AppNavLink>
         <AppNavLink to="/games">Games</AppNavLink>
