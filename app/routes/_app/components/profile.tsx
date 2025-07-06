@@ -29,7 +29,12 @@ export function Profile({ imageUrl, bio, socialLinks }: ProfileProps) {
 
       <div className="flex gap-4">
         {socialLinks.map((link) => (
-          <Button key={link.name} variant="ghost" className="icon" asChild>
+          <Button
+            key={link.name}
+            variant="ghost"
+            className="transition-all duration-300 transform hover:scale-110 "
+            asChild
+          >
             <a href={link.url} target="_blank" rel="noopener noreferrer">
               {link.icon}
               <span className="sr-only">{link.name}</span>

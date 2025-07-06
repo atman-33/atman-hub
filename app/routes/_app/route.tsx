@@ -24,12 +24,12 @@ const AppLayout = () => {
             {
               name: 'GitHub',
               url: 'https://github.com/atman',
-              icon: <GithubIcon className="w-5 h-5" />,
+              icon: <GithubIcon className="w-8 h-8" />,
             },
             {
               name: 'X',
               url: 'https://twitter.com/atman',
-              icon: <XIcon className="w-5 h-5" />,
+              icon: <XIcon className="w-8 h-8" />,
             },
           ]}
         />
