@@ -6,12 +6,12 @@
 
 ## 1. Project Overview
 
-Personal portfolio website showcasing Atman's profile, web applications, games, and tech blog links.
+Personal portfolio website showcasing Atman's profile, web applications, and tech blog links.
 
 ## 2. Purpose
 
 - Display professional profile and work samples
-- Provide access to developed applications and games
+- Provide access to developed applications
 - Serve as a gateway to external tech blog content
 
 ## 3. Target Users
@@ -31,7 +31,7 @@ Personal portfolio website showcasing Atman's profile, web applications, games, 
 ### 5.1 Core Features
 
 - Profile display with photo and brief introduction
-- Tab-based navigation (Apps/Blogs/Games)
+- Tab-based navigation (Apps/Blogs)
 - Config-driven content management
 
 ### 5.2 Tab Functionality
@@ -42,9 +42,6 @@ Personal portfolio website showcasing Atman's profile, web applications, games, 
 - **Blogs Tab**:
   - External blog post cards (Zenn/Medium)
   - Each card contains: Title, Excerpt, Publication Date, External Link
-- **Games Tab**:
-  - Web game showcase cards
-  - Each card contains: Title, Description, Screenshot, Play Link
 
 ## 6. Non-Functional Requirements
 
@@ -65,7 +62,6 @@ Personal portfolio website showcasing Atman's profile, web applications, games, 
 [Tab Navigation]
   - Apps (active by default)
   - Blogs 
-  - Games
 [Content Area]
   - Cards Grid (3 columns desktop, 1 column mobile)
 [Footer]
@@ -102,14 +98,6 @@ interface BlogItem {
   platform: 'zenn' | 'medium';
 }
 
-// games.config.ts
-interface GameItem {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  playUrl: string;
-}
 ```
 
 ## 9. Development Environment
@@ -144,5 +132,4 @@ interface GameItem {
 
 - Phase 1: MVP (Profile + Apps)
 - Phase 2: Blogs integration
-- Phase 3: Games section
-- Phase 4: Analytics integration
+- Phase 3: Analytics integration
