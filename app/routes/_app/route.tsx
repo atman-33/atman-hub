@@ -11,7 +11,7 @@ const AppLayout = () => {
       <div className="container mx-auto pt-4 px-4 sm:px-6 lg:px-8">
         <Header />
         <Profile
-          imageUrl="/profile.jpg"
+          imageUrl="/images/profile.jpg"
           bio={
             <>
               Hello, I'm Atman — a software engineer focused on developing
@@ -23,12 +23,12 @@ const AppLayout = () => {
           socialLinks={[
             {
               name: 'GitHub',
-              url: 'https://github.com/atman',
+              url: 'https://github.com/atman-33',
               icon: <GithubIcon className="w-8 h-8" />,
             },
             {
               name: 'X',
-              url: 'https://twitter.com/atman',
+              url: 'https://twitter.com/atman_33',
               icon: <XIcon className="w-8 h-8" />,
             },
           ]}

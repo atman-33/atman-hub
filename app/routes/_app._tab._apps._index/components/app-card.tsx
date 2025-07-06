@@ -42,7 +42,7 @@ export function AppCard({ app, isLoading = false }: AppCardProps) {
           />
         )}
       </div>
-      <div className="mt-4 p-2">
+      <div className="mt-2 p-2">
         <div className="flex items-center gap-2">
           {app.icon && (
             <img src={app.icon} alt="App Icon" className="h-5 w-5" />
