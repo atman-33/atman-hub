@@ -13,6 +13,12 @@ export const blogs: BlogItem[] = [
     image: `${import.meta.env.BASE_URL}images/Medium-Wordmark-Black.svg`,
   },
   {
+    title: 'DEV Articles',
+    description: 'Technical writing and development logs on DEV Community',
+    url: 'https://dev.to/atman33',
+    image: `${import.meta.env.BASE_URL}images/dev-badge.svg`,
+  },
+  {
     title: 'Zenn Articles',
     description: 'Technical writing in japanese',
     url: 'https://zenn.dev/atman',
