@@ -11,8 +11,15 @@ export function meta(_args: Route.MetaArgs) {
 
 export default function BlogsIndex() {
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="mb-8 text-3xl font-bold text-center">My Blog Posts</h1>
+    <div className="space-y-8">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold gradient-text mb-4 tracking-tight">
+          My Blog Posts
+        </h1>
+        <p className="text-white/70 text-lg max-w-2xl mx-auto">
+          Insights and thoughts from my journey in software development
+        </p>
+      </div>
       <BlogsGrid blogs={blogs} />
     </div>
   );

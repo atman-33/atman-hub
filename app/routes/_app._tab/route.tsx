@@ -4,11 +4,17 @@ import { AppNavLink } from './components/app-nav-link';
 const AppTabLayout = () => {
   return (
     <>
-      <div className="flex justify-center gap-8 border-b">
-        <AppNavLink to="/">Apps</AppNavLink>
-        <AppNavLink to="/blogs">Blogs</AppNavLink>
+      {/* Modern tab navigation with glass effect */}
+      <div className="flex justify-center mb-8">
+        <div className="glass rounded-2xl p-2 border-white/20">
+          <div className="flex gap-2">
+            <AppNavLink to="/">Apps</AppNavLink>
+            <AppNavLink to="/blogs">Blogs</AppNavLink>
+          </div>
+        </div>
       </div>
-      <div className="py-6 animate-fade-in animate-duration-500">
+
+      <div className="animate-fade-in animate-duration-700 animate-delay-200">
         <Outlet />
       </div>
     </>

@@ -15,18 +15,23 @@ export const AppNavLink = ({
       preventScrollReset
       className={({ isActive, isPending }) =>
         cn(
-          'flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors',
-          'border-b-2 border-transparent',
-          'focus:!ring-transparent',
+          'relative flex items-center justify-center px-6 py-3 text-sm font-medium transition-all duration-300 rounded-xl',
+          'focus:!ring-transparent overflow-hidden',
           {
-            'text-muted-foreground hover:text-foreground': !isActive,
-            'border-primary text-foreground font-semibold': isActive,
+            'text-white/70 hover:text-white hover:bg-white/10': !isActive,
+            'text-white bg-white/20 shadow-lg backdrop-blur-md border border-white/30':
+              isActive,
             'cursor-wait opacity-50': isPending,
           },
         )
       }
     >
-      {children}
+      {/* Background glow effect for active state */}
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-400/20 opacity-0 transition-opacity duration-300" />
+
+      <span className="relative z-10 font-semibold tracking-wide">
+        {children}
+      </span>
     </NavLink>
   );
 };
