@@ -13,11 +13,12 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "editor.codeActionsOnSave": {
-    "source.organizeImports.biome": "explicit",
-    "source.fixAll.biome": "explicit"
-  },
   "[json]": {
     "editor.defaultFormatter": "biomejs.biome"
+  },
+  "typescript.autoClosingTags": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "never",
+    "source.fixAll.biome": "never"
   }
 }

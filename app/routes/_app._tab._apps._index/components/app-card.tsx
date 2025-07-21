@@ -12,62 +12,87 @@ export function AppCard({ app, isLoading = false }: AppCardProps) {
 
   if (isLoading || !app) {
     return (
-      <div className="group relative overflow-hidden rounded-lg border bg-card p-4 shadow-sm">
-        <div className="aspect-video overflow-hidden rounded-md bg-muted">
-          <Skeleton className="h-full w-full" />
+      <div className="glass glow-on-hover rounded-2xl p-6 border-white/20 backdrop-blur-md">
+        <div className="aspect-video overflow-hidden rounded-xl bg-white/10">
+          <Skeleton className="h-full w-full bg-white/20" />
         </div>
-        <div className="mt-4 space-y-2">
-          <Skeleton className="h-6 w-3/4" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-5/6" />
+        <div className="mt-6 space-y-3">
+          <Skeleton className="h-6 w-3/4 bg-white/20" />
+          <Skeleton className="h-4 w-full bg-white/20" />
+          <Skeleton className="h-4 w-5/6 bg-white/20" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="group relative overflow-hidden rounded-xl border bg-card shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.03]">
-      <div className="aspect-video overflow-hidden rounded-md rounded-b-none bg-muted">
+    <div className="group glass glow-on-hover rounded-2xl border-white/20 backdrop-blur-md overflow-hidden transition-all duration-500 hover:scale-105 hover:rotate-1">
+      {/* Image with overlay gradient */}
+      <div className="relative aspect-video overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10"></div>
         {imageError ? (
-          <div className="flex h-full w-full items-center justify-center bg-destructive/10">
-            <span className="text-destructive">Image failed to load</span>
+          <div className="flex h-full w-full items-center justify-center bg-red-500/20">
+            <span className="text-white/80">Image failed to load</span>
           </div>
         ) : (
           <img
             src={app.imageUrl}
             alt={app.title}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             onError={() => setImageError(true)}
             loading="lazy"
           />
         )}
       </div>
-      <div className="mt-2 p-2">
-        <div className="flex items-center gap-2">
+
+      {/* Content */}
+      <div className="p-6">
+        <div className="flex items-center gap-3 mb-3">
           {app.icon && (
-            <img src={app.icon} alt="App Icon" className="h-5 w-5" />
+            <div className="relative">
+              <img
+                src={app.icon}
+                alt="App Icon"
+                className="h-6 w-6 rounded-lg shadow-lg"
+              />
+              <div className="absolute inset-0 bg-white/20 rounded-lg"></div>
+            </div>
           )}
-          <h3 className="text-lg font-semibold">{app.title}</h3>
+          <h3 className="text-xl font-bold text-white tracking-tight">
+            {app.title}
+          </h3>
         </div>
-        <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+
+        <p className="text-white/80 text-sm leading-relaxed line-clamp-2 mb-4">
           {app.description}
         </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {app.tags.map((tag) => (
+
+        {/* Tags with glass effect */}
+        <div className="flex flex-wrap gap-2">
+          {app.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground"
+              className="glass rounded-full px-3 py-1 text-xs text-white/90 border-white/20 backdrop-blur-sm font-medium"
             >
               {tag}
             </span>
           ))}
+          {app.tags.length > 3 && (
+            <span className="glass rounded-full px-3 py-1 text-xs text-white/70 border-white/20 backdrop-blur-sm">
+              +{app.tags.length - 3}
+            </span>
+          )}
         </div>
       </div>
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
       <a
         href={app.demoUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute inset-0"
+        className="absolute inset-0 z-20"
         aria-label={`View ${app.title} demo`}
       >
         <span className="sr-only">View {app.title} demo</span>

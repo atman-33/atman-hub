@@ -25,7 +25,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: 'icon',
-    href: `${import.meta.env.BASE_URL}favicons/favicon.ico`,
+    href: `${import.meta.env.BASE_URL}favicon.ico`,
     type: 'image/x-icon',
   },
 ];

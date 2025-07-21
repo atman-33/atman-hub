@@ -19,14 +19,20 @@ export const blogs: BlogItem[] = [
     image: `${import.meta.env.BASE_URL}images/dev-badge.svg`,
   },
   {
+    title: 'note Articles',
+    description: 'General writing in Japanese',
+    url: 'https://note.com/atman33',
+    image: `${import.meta.env.BASE_URL}images/note-logo.svg`,
+  },
+  {
     title: 'Zenn Articles',
-    description: 'Technical writing in japanese',
+    description: 'Technical writing in Japanese',
     url: 'https://zenn.dev/atman',
     image: `${import.meta.env.BASE_URL}images/Zenn-logo.png`,
   },
   {
     title: 'izanami Articles',
-    description: 'Technical writing in japanese',
+    description: 'Technical writing in Japanese',
     url: 'https://izanami.dev/user/bfdb45af-4adf-4994-aca7-595f2228fb88',
     image: `${import.meta.env.BASE_URL}images/izanami-logo.svg`,
   },
