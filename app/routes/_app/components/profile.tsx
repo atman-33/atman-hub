@@ -45,7 +45,7 @@ export function Profile({ imageUrl, bio, socialLinks }: ProfileProps) {
           <Button
             key={link.name}
             variant="ghost"
-            className="glass glow-on-hover rounded-2xl p-4 border-white/20 hover:border-white/40 transition-all duration-300 transform hover:scale-110 backdrop-blur-md"
+            className="glass glow-on-hover rounded-full p-4 border-white/20 hover:border-white/40 transition-all duration-300 transform hover:scale-110 backdrop-blur-md size-12"
             asChild
           >
             <a
