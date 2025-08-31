@@ -27,12 +27,14 @@ export const apps: AppItem[] = [
     tags: ['YouTube', 'Music', 'Video Player'],
   },
   {
-    title: 'Infinite Runner',
-    icon: '', // Placeholder for icon URL
-    description: 'Control a running mouse, dodge obstacles, and grab coins!',
+    title: 'Double-Click Image Opener',
+    icon: 'https://tech-bridge-log.com/icons/tags/obsidian.svg',
+    description:
+      'Obsidian plugin to open images in your default system viewer by double-clicking them.',
     imageUrl:
-      'https://github.com/atman-33/phaser3-webpack-typescript-template/blob/master/img/game.png?raw=true',
-    demoUrl: 'https://atman-33.github.io/phaser3-webpack-typescript-template/',
-    tags: ['Game', 'Phaser'],
+      'https://raw.githubusercontent.com/atman-33/double-click-image-opener/refs/heads/main/images/double-click-image-to-open.png',
+    demoUrl:
+      'https://github.com/atman-33/double-click-image-opener?tab=readme-ov-file#readme',
+    tags: ['Obsidian', 'Plugin', 'Image Viewer'],
   },
 ];
