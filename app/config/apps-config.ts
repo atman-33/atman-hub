@@ -1,3 +1,5 @@
+import appsJson from '../../contents/apps.json' with { type: 'json' };
+
 export interface AppItem {
   title: string;
   icon?: string; // Change to string for URL
@@ -7,34 +9,6 @@ export interface AppItem {
   tags: string[];
 }
 
-export const apps: AppItem[] = [
-  {
-    title: 'MangaLog',
-    icon: 'https://github.com/atman-33/manga-log/blob/main/public/favicons/favicon-32x32.png?raw=true',
-    description: 'Track & Organize Your Manga Reading Journey',
-    imageUrl:
-      'https://raw.githubusercontent.com/atman-33/manga-log/refs/heads/main/public/ogp-image.png',
-    appUrl: 'https://mangalogs.com/',
-    tags: ['Manga', 'Tracker', 'Reading Log'],
-  },
-  {
-    title: 'TubeLoopPlayer',
-    icon: 'https://raw.githubusercontent.com/atman-33/tube-loop-player/refs/heads/main/public/favicons/favicon-32x32.png',
-    description: 'Loop & Playlist Your Favorite YouTube Videos',
-    imageUrl:
-      'https://raw.githubusercontent.com/atman-33/tube-loop-player/refs/heads/main/public/ogp-image.png',
-    appUrl: 'https://tubeloopplayer.com/',
-    tags: ['YouTube', 'Music', 'Video Player'],
-  },
-  {
-    title: 'Double-Click Image Opener',
-    icon: 'https://tech-bridge-log.com/icons/tags/obsidian.svg',
-    description:
-      'Obsidian plugin to open images in your default system viewer by double-clicking them.',
-    imageUrl:
-      'https://raw.githubusercontent.com/atman-33/double-click-image-opener/refs/heads/main/images/double-click-image-to-open.png',
-    appUrl:
-      'https://github.com/atman-33/double-click-image-opener?tab=readme-ov-file#readme',
-    tags: ['Obsidian', 'Plugin', 'Image Viewer'],
-  },
-];
+const appsData = appsJson as AppItem[];
+
+export const apps = appsData;
