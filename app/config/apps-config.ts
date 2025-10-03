@@ -3,7 +3,7 @@ export interface AppItem {
   icon?: string; // Change to string for URL
   description: string;
   imageUrl: string;
-  demoUrl: string;
+  appUrl: string;
   tags: string[];
 }
 
@@ -14,7 +14,7 @@ export const apps: AppItem[] = [
     description: 'Track & Organize Your Manga Reading Journey',
     imageUrl:
       'https://raw.githubusercontent.com/atman-33/manga-log/refs/heads/main/public/ogp-image.png',
-    demoUrl: 'https://mangalogs.com/',
+    appUrl: 'https://mangalogs.com/',
     tags: ['Manga', 'Tracker', 'Reading Log'],
   },
   {
@@ -23,7 +23,7 @@ export const apps: AppItem[] = [
     description: 'Loop & Playlist Your Favorite YouTube Videos',
     imageUrl:
       'https://raw.githubusercontent.com/atman-33/tube-loop-player/refs/heads/main/public/ogp-image.png',
-    demoUrl: 'https://tubeloopplayer.com/',
+    appUrl: 'https://tubeloopplayer.com/',
     tags: ['YouTube', 'Music', 'Video Player'],
   },
   {
@@ -33,7 +33,7 @@ export const apps: AppItem[] = [
       'Obsidian plugin to open images in your default system viewer by double-clicking them.',
     imageUrl:
       'https://raw.githubusercontent.com/atman-33/double-click-image-opener/refs/heads/main/images/double-click-image-to-open.png',
-    demoUrl:
+    appUrl:
       'https://github.com/atman-33/double-click-image-opener?tab=readme-ov-file#readme',
     tags: ['Obsidian', 'Plugin', 'Image Viewer'],
   },
