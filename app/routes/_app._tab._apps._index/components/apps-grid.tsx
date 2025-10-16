@@ -25,7 +25,7 @@ export function AppsGrid({ apps, isLoading = false }: AppsGridProps) {
                 <AppCard isLoading />
               </div>
             ))
-        : apps.map((app, index) => (
+        : [...apps].reverse().map((app, index) => (
             <Fragment key={app.title}>
               <div
                 className="w-full max-w-sm animate-fade-in animate-duration-700"
