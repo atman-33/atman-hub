@@ -37,7 +37,7 @@
     "zustand": "^5.0.6"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
+    "@biomejs/biome": "2.5.13",
     "@react-router/dev": "^7.18.3",
     "@tailwindcss/vite": "^4.1.4",
     "@types/node": "^20",
