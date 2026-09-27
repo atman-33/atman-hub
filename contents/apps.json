@@ -46,5 +46,13 @@
     "imageUrl": "https://raw.githubusercontent.com/atman-33/sketch-illustrations/refs/heads/main/screenshots/image.png",
     "appUrl": "https://sketch-illustrations.atman-33.workers.dev",
     "tags": ["Illustrations", "SVG", "Catalog"]
+  },
+  {
+    "title": "Ever Garden",
+    "icon": "https://ever-garden.atman-33.workers.dev/favicons/favicon-32x32.png",
+    "description": "A garden where useful tools, knowledge and materials gather, grow and are found.",
+    "imageUrl": "https://ever-garden.atman-33.workers.dev/og-image.png",
+    "appUrl": "https://ever-garden.atman-33.workers.dev",
+    "tags": ["Garden", "Tools", "Knowledge"]
   }
 ]
